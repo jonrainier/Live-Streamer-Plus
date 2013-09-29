@@ -34,5 +34,13 @@ Issues
 If you are experiencing any issues such as crashes, please report them [here](https://github.com/Pwnoz0r/Live-Streamer-Plus/issues/new).
 
 
+----------
+
+Examples (Quality)
+--------
+
+ - [TSM_Dyrus][3]
+
   [1]: http://i.imgur.com/YbYbruF.png
   [2]: http://meta.pwnoz0r.com/20130929035919200.png
+  [3]: http://i.imgur.com/JWEeWIQ.png
