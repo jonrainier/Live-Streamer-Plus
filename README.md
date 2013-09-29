@@ -26,6 +26,7 @@ Use
 Fill in all the fields and press "Go!"
 
 ![Live-Streamer-Plus Screenshot][2]
+
 ----------
 
 Issues
