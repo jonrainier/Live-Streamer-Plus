@@ -15,7 +15,7 @@ namespace Live_Streamer_Plus
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            Application.Run(new LiveStreamerPlus());
         }
     }
 }
