@@ -34,4 +34,4 @@ If you are experiencing any issues such as crashes, please report them [here](ht
 
 
   [1]: http://i.imgur.com/YbYbruF.png
-  [2]: http://meta.pwnoz0r.com/20130929034814655.png
+  [2]: http://meta.pwnoz0r.com/20130929035919200.png
