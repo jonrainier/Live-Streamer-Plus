@@ -20,6 +20,7 @@ namespace Live_Streamer_Plus_Updater
             GetDownloadUrl();
         }
 
+        //Get the download URL from a remote host.
         private static void GetDownloadUrl()
         {
             WebClient GetUpdateURL = new WebClient();
@@ -28,6 +29,7 @@ namespace Live_Streamer_Plus_Updater
             DownloadUpdate(GetUpdateURLString);
         }
 
+        //Fetch the update.
         private static void DownloadUpdate(string url)
         {
             ConsoleOut("Fetching update from: http://74.91.121.95:8080/LiveStreamerPlus/RC/");
@@ -50,11 +52,16 @@ namespace Live_Streamer_Plus_Updater
             }
         }
 
+        //Another type of log writing, making things less repetitive.
         private static void ConsoleOut(string ConsoleOut)
         {
             Console.WriteLine(ConsoleOut + "\r\n");
         }
 
+        /**
+         * If the setup file exists on startup, make sure to delete it. 
+         * This may be moved to the main application in the future if problems arise.
+         **/
         private static void CheckIfFileExists()
         {
             if (File.Exists("setup.exe"))

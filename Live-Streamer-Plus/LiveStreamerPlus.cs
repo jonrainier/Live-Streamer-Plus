@@ -22,6 +22,7 @@ namespace Live_Streamer_Plus
             this.Text = "Live Streamer Plus :: " + Application.ProductVersion;
         }
 
+        //Things done when the program is loaded.
         private void MainForm_Load(object sender, EventArgs e)
         {
             LogNoTime("Live Streamer Plus created by Pwnoz0r: https://github.com/pwnoz0r");
@@ -38,6 +39,7 @@ namespace Live_Streamer_Plus
             this.CheckForUpdates();
         }
 
+        //Check for updates for the application.
         private void CheckForUpdates()
         {
             WebClient GetUpdateURL = new WebClient();
@@ -63,6 +65,7 @@ namespace Live_Streamer_Plus
             }
         }
 
+        //Call the updater.
         private void DoUpdate()
         {
             try
@@ -77,6 +80,7 @@ namespace Live_Streamer_Plus
             }
         }
 
+        //Get the latest changelog from a remote location.
         private void DownloadChangeLog()
         {
             WebClient DownloadChangeLogClient = new WebClient();
@@ -94,11 +98,13 @@ namespace Live_Streamer_Plus
             }
         }
 
+        //When links are clicked in the console they will open in your browser.
         private void ClickLink(object sender, System.Windows.Forms.LinkClickedEventArgs e)
         {
             Process.Start(e.LinkText);
         }
 
+        //Check if the prerequisites are installed.
         private void CheckInstalledPrograms(int Programs)
         {
             string ApplicationDataLocation = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
@@ -144,6 +150,7 @@ namespace Live_Streamer_Plus
             }
         }
 
+        //Instead of "Console.WriteLine(string)" use our custom console.
         private void Log(string log)
         {
             DateTime DTN = DateTime.Now;
@@ -161,6 +168,7 @@ namespace Live_Streamer_Plus
             }
         }
 
+        //Same as the log, but without timestamps.
         private void LogNoTime(string log)
         {
             rtb_Console.SelectionAlignment = HorizontalAlignment.Center;
@@ -176,6 +184,7 @@ namespace Live_Streamer_Plus
             }
         }
 
+        //When the "Go!" button is clicked, do things.
         private void btn_Go_Click(object sender, EventArgs e)
         {
             if (cb_SelectedStream.Text == String.Empty || tb_DoStreamer.Text == string.Empty || cb_Quality.Text == string.Empty)
@@ -196,6 +205,7 @@ namespace Live_Streamer_Plus
             }
         }
 
+        //Call another method to save the config.
         private void btn_SaveConfig_Click(object sender, EventArgs e)
         {
             this.CheckInstalledPrograms(2);
