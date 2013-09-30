@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Live_Streamer_Plus
@@ -33,6 +34,47 @@ namespace Live_Streamer_Plus
             this.DownloadChangeLog();
 
             rtb_Console.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(ClickLink);
+
+            this.CheckForUpdates();
+        }
+
+        private void CheckForUpdates()
+        {
+            WebClient GetUpdateURL = new WebClient();
+            GetUpdateURL.Proxy = null;
+            try
+            {
+                string GetUpdateURLInt = GetUpdateURL.DownloadString("http://74.91.121.95:8080/LiveStreamerPlus/Configs/version.txt");
+                int UpdateAsInt;
+                int.TryParse(GetUpdateURLInt, out UpdateAsInt);
+                int ProductVersion;
+                int.TryParse(Application.ProductVersion, out ProductVersion);
+
+                if (ProductVersion < UpdateAsInt)
+                {
+                    MessageBox.Show("Update available!");
+                    this.DoUpdate();
+                }
+            }
+            catch (WebException ex)
+            {
+                Log(ex.ToString());
+                Application.Exit();
+            }
+        }
+
+        private void DoUpdate()
+        {
+            try
+            {
+                Process.Start("Live-Streamer-Plus-Updater.exe");
+                Application.Exit();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                Application.Exit();
+            }
         }
 
         private void DownloadChangeLog()

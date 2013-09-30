@@ -2,6 +2,11 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Live-Streamer-Plus", "Live-Streamer-Plus\Live-Streamer-Plus.csproj", "{848CA201-2C91-41CC-AF1E-270263E8E1D1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F34BE35F-219E-46F3-8FF0-3011FD9A23DF} = {F34BE35F-219E-46F3-8FF0-3011FD9A23DF}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Live-Streamer-Plus-Updater", "Live-Streamer-Plus-Updater\Live-Streamer-Plus-Updater.csproj", "{F34BE35F-219E-46F3-8FF0-3011FD9A23DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,6 +18,10 @@ Global
 		{848CA201-2C91-41CC-AF1E-270263E8E1D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{848CA201-2C91-41CC-AF1E-270263E8E1D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{848CA201-2C91-41CC-AF1E-270263E8E1D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F34BE35F-219E-46F3-8FF0-3011FD9A23DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F34BE35F-219E-46F3-8FF0-3011FD9A23DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F34BE35F-219E-46F3-8FF0-3011FD9A23DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F34BE35F-219E-46F3-8FF0-3011FD9A23DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
