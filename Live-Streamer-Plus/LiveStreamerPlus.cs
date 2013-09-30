@@ -52,7 +52,7 @@ namespace Live_Streamer_Plus
                 int ProductVersion;
                 int.TryParse(Application.ProductVersion, out ProductVersion);
 
-                if (ProductVersion < UpdateAsInt)
+                if (!(ProductVersion == UpdateAsInt))
                 {
                     MessageBox.Show("Update available!");
                     this.DoUpdate();
@@ -70,7 +70,7 @@ namespace Live_Streamer_Plus
         {
             try
             {
-                Process.Start("Live-Streamer-Plus-Updater.exe");
+                Process.Start(Directory.GetCurrentDirectory() + @"\Live-Streamer-Plus-Updater.exe");
                 Application.Exit();
             }
             catch(Exception ex)
