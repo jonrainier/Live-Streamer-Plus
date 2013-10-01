@@ -42,17 +42,15 @@ namespace Live_Streamer_Plus
         {
             WebClient GetUpdateURL = new WebClient();
             GetUpdateURL.Proxy = null;
+
+            string GetUpdateURLAsString = GetUpdateURL.DownloadString("http://74.91.121.95:8080/LiveStreamerPlus/Configs/version.txt");
+            string ProductVersionAsString = Application.ProductVersion;
+
             try
             {
-                string GetUpdateURLInt = GetUpdateURL.DownloadString("http://74.91.121.95:8080/LiveStreamerPlus/Configs/version.txt");
-                int UpdateAsInt;
-                int.TryParse(GetUpdateURLInt, out UpdateAsInt);
-                int ProductVersion;
-                int.TryParse(Application.ProductVersion, out ProductVersion);
-
-                if (!(ProductVersion == UpdateAsInt))
+                if (!(GetUpdateURLAsString == ProductVersionAsString))
                 {
-                    MessageBox.Show("Update available!");
+                    MessageBox.Show("Update available!", "Live Streamer Plus", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     this.DoUpdate();
                 }
             }
@@ -73,7 +71,7 @@ namespace Live_Streamer_Plus
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.ToString(), "Live Streamer Plus", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Application.Exit();
             }
         }
