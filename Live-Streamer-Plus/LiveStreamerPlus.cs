@@ -11,6 +11,7 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using Awesomium;
 
 namespace Live_Streamer_Plus
 {
@@ -31,11 +32,8 @@ namespace Live_Streamer_Plus
             LogNoTime("-------------------------------------------------------------");
 
             this.CheckInstalledPrograms(1);
-
             this.DownloadChangeLog();
-
             rtb_Console.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(ClickLink);
-
             this.CheckForUpdates();
         }
 
@@ -78,6 +76,16 @@ namespace Live_Streamer_Plus
                 MessageBox.Show(ex.ToString());
                 Application.Exit();
             }
+        }
+
+        //Once the channel is selected open up the chat.
+        private void OpenTwitchChat()
+        {
+            tc_MainForm.SelectedIndex = 3;
+            System.Media.SystemSounds.Asterisk.Play();
+            //gwb_Chat.Navigate("http://www.twitch.tv/chat/embed?channel=" + tb_DoStreamer.Text + "&popout_chat=true");
+            Uri NavigateUri = new Uri("http://www.twitch.tv/chat/embed?channel=" + tb_DoStreamer.Text + "&popout_chat=true");
+            wc_Chat.Source = NavigateUri;
         }
 
         //Get the latest changelog from a remote location.
@@ -194,6 +202,8 @@ namespace Live_Streamer_Plus
             }
             else
             {
+                this.OpenTwitchChat();
+
                 Log("Started Stream: " + "'" + tb_DoStreamer.Text + "'" + " " + "on" + " '" + cb_SelectedStream.Text + "' " + " with" + " '" + cb_Quality.Text + "' " + "quality.");
                 Process StartCMD = new Process();
                 StartCMD.StartInfo.FileName = "cmd.exe";
