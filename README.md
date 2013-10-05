@@ -17,7 +17,7 @@ Prerequisites
 
 Downloads
 -------
-You are more than welcome to take the code provided and compile a version of it yourself, or you can find the latest release candidates here: [downloads](http://74.91.121.95:8080/LiveStreamerPlus/RC/).
+You are more than welcome to take the code provided and compile a version of it yourself, or you can find the latest release candidates here: [downloads](https://github.com/Pwnoz0r/Live-Streamer-Plus/releases).
 
 ----------
 
