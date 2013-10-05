@@ -16,10 +16,12 @@ namespace Live_Streamer_Plus
 {
     public partial class LiveStreamerPlus : Form
     {
+        public static string ApplicationName = "Live Streamer Plus :: " + Application.ProductVersion;
+
         public LiveStreamerPlus()
         {
             InitializeComponent();
-            this.Text = "Live Streamer Plus :: " + Application.ProductVersion;
+            this.Text = ApplicationName;
         }
 
         //Things done when the program is loaded.
@@ -49,7 +51,7 @@ namespace Live_Streamer_Plus
             {
                 if (!(GetUpdateURLAsString == ProductVersionAsString))
                 {
-                    MessageBox.Show("Update available!", "Live Streamer Plus", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("Update available!", ApplicationName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     this.DoUpdate();
                 }
             }
@@ -70,7 +72,7 @@ namespace Live_Streamer_Plus
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "Live Streamer Plus", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.ToString(), ApplicationName, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Application.Exit();
             }
         }
@@ -116,29 +118,28 @@ namespace Live_Streamer_Plus
         private void CheckInstalledPrograms(int Programs)
         {
             string ApplicationDataLocation = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string VLCInstallLocation = (string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\VideoLAN\\VLC", "", null);
-            string LivestreamerConfigLocation = ApplicationDataLocation + @"\livestreamer\livestreamerrc";
-            string LivestreamerReadFile = File.ReadAllText(LivestreamerConfigLocation);
+            try
+            {
+                string VLCInstallLocation = (string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\VideoLAN\\VLC", "", null);
+                string LivestreamerConfigLocation = ApplicationDataLocation + @"\livestreamer\livestreamerrc";
+                string LivestreamerReadFile = File.ReadAllText(LivestreamerConfigLocation);
+
+                rtb_ConfigEditor.Text = LivestreamerReadFile;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("One of the dependencies is not installed. Please make sure to install all dependencies before running this application.\r\n\r\n\r\n" +
+                    ex.ToString(), ApplicationName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
+            }
+
 
             switch (Programs)
             {
-                case 1:
-                    if (File.Exists(LivestreamerConfigLocation) && File.Exists(VLCInstallLocation))
-                    {
-                        rtb_ConfigEditor.Text = LivestreamerReadFile;
-                    }
-                    else
-                    {
-                        System.Media.SystemSounds.Hand.Play();
-                        Log("VLC or Livestreamer is not installed! Please install them from the links above!");
-                        btn_Go.Enabled = false;
-                        btn_SaveConfig.Enabled = false;
-                    }
-                    break;
-
                 case 2:
                     try
                     {
+                        string LivestreamerConfigLocation = ApplicationDataLocation + @"\livestreamer\livestreamerrc";
                         StreamWriter LivestreamerConfigStreamWriter = new StreamWriter(LivestreamerConfigLocation);
                         LivestreamerConfigStreamWriter.Write(rtb_ConfigEditor.Text);
                         LivestreamerConfigStreamWriter.Close();

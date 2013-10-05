@@ -32,7 +32,7 @@ namespace Live_Streamer_Plus_Updater
         //Fetch the update.
         private static void DownloadUpdate(string url)
         {
-            ConsoleOut("Fetching update from: http://74.91.121.95:8080/LiveStreamerPlus/RC/");
+            ConsoleOut("Fetching update from: https://github.com/Pwnoz0r/Live-Streamer-Plus/releases/");
 
             WebClient GetUpdate = new WebClient();            
             GetUpdate.Proxy = null;
