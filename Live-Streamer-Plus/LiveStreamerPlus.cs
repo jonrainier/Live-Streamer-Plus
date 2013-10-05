@@ -11,7 +11,6 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using Awesomium;
 
 namespace Live_Streamer_Plus
 {
@@ -77,14 +76,17 @@ namespace Live_Streamer_Plus
         }
 
         //Once the channel is selected open up the chat.
+        /*
         private void OpenTwitchChat()
         {
             tc_MainForm.SelectedIndex = 3;
             System.Media.SystemSounds.Asterisk.Play();
             //gwb_Chat.Navigate("http://www.twitch.tv/chat/embed?channel=" + tb_DoStreamer.Text + "&popout_chat=true");
-            Uri NavigateUri = new Uri("http://www.twitch.tv/chat/embed?channel=" + tb_DoStreamer.Text + "&popout_chat=true");
-            wc_Chat.Source = NavigateUri;
+            //Uri NavigateUri = new Uri("http://www.twitch.tv/chat/embed?channel=" + tb_DoStreamer.Text + "&popout_chat=true");
+            string NavigateUri = "http://www.twitch.tv/chat/embed?channel=" + tb_DoStreamer.Text;
+            wb_Chat.Navigate(new Uri(NavigateUri));
         }
+        */
 
         //Get the latest changelog from a remote location.
         private void DownloadChangeLog()
@@ -200,7 +202,7 @@ namespace Live_Streamer_Plus
             }
             else
             {
-                this.OpenTwitchChat();
+                //this.OpenTwitchChat();
 
                 Log("Started Stream: " + "'" + tb_DoStreamer.Text + "'" + " " + "on" + " '" + cb_SelectedStream.Text + "' " + " with" + " '" + cb_Quality.Text + "' " + "quality.");
                 Process StartCMD = new Process();

@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LiveStreamerPlus));
             this.lbl_Stream = new System.Windows.Forms.Label();
             this.tb_DoStreamer = new System.Windows.Forms.TextBox();
@@ -43,13 +42,10 @@
             this.rtb_ConfigEditor = new System.Windows.Forms.RichTextBox();
             this.tp_ChangeLog = new System.Windows.Forms.TabPage();
             this.rtb_ChangeLog = new System.Windows.Forms.RichTextBox();
-            this.tp_Chat = new System.Windows.Forms.TabPage();
-            this.wc_Chat = new Awesomium.Windows.Forms.WebControl(this.components);
             this.tc_MainForm.SuspendLayout();
             this.tp_Stream.SuspendLayout();
             this.tp_EditConfig.SuspendLayout();
             this.tp_ChangeLog.SuspendLayout();
-            this.tp_Chat.SuspendLayout();
             this.SuspendLayout();
             // 
             // lbl_Stream
@@ -121,7 +117,6 @@
             this.tc_MainForm.Controls.Add(this.tp_Stream);
             this.tc_MainForm.Controls.Add(this.tp_EditConfig);
             this.tc_MainForm.Controls.Add(this.tp_ChangeLog);
-            this.tc_MainForm.Controls.Add(this.tp_Chat);
             this.tc_MainForm.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tc_MainForm.Location = new System.Drawing.Point(0, 0);
             this.tc_MainForm.Name = "tc_MainForm";
@@ -182,7 +177,7 @@
             this.tp_ChangeLog.Controls.Add(this.rtb_ChangeLog);
             this.tp_ChangeLog.Location = new System.Drawing.Point(4, 24);
             this.tp_ChangeLog.Name = "tp_ChangeLog";
-            this.tp_ChangeLog.Size = new System.Drawing.Size(651, 384);
+            this.tp_ChangeLog.Size = new System.Drawing.Size(651, 389);
             this.tp_ChangeLog.TabIndex = 2;
             this.tp_ChangeLog.Text = "Change Log";
             this.tp_ChangeLog.UseVisualStyleBackColor = true;
@@ -193,27 +188,9 @@
             this.rtb_ChangeLog.Location = new System.Drawing.Point(0, 0);
             this.rtb_ChangeLog.Name = "rtb_ChangeLog";
             this.rtb_ChangeLog.ReadOnly = true;
-            this.rtb_ChangeLog.Size = new System.Drawing.Size(651, 384);
+            this.rtb_ChangeLog.Size = new System.Drawing.Size(651, 389);
             this.rtb_ChangeLog.TabIndex = 0;
             this.rtb_ChangeLog.Text = "CHANGELOG_TEXT";
-            // 
-            // tp_Chat
-            // 
-            this.tp_Chat.Controls.Add(this.wc_Chat);
-            this.tp_Chat.Location = new System.Drawing.Point(4, 24);
-            this.tp_Chat.Name = "tp_Chat";
-            this.tp_Chat.Size = new System.Drawing.Size(651, 384);
-            this.tp_Chat.TabIndex = 3;
-            this.tp_Chat.Text = "Chat";
-            this.tp_Chat.UseVisualStyleBackColor = true;
-            // 
-            // wc_Chat
-            // 
-            this.wc_Chat.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.wc_Chat.Location = new System.Drawing.Point(0, 0);
-            this.wc_Chat.Size = new System.Drawing.Size(651, 384);
-            this.wc_Chat.Source = new System.Uri("about:blank", System.UriKind.Absolute);
-            this.wc_Chat.TabIndex = 0;
             // 
             // LiveStreamerPlus
             // 
@@ -233,7 +210,6 @@
             this.tp_Stream.PerformLayout();
             this.tp_EditConfig.ResumeLayout(false);
             this.tp_ChangeLog.ResumeLayout(false);
-            this.tp_Chat.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -253,8 +229,6 @@
         private System.Windows.Forms.Button btn_SaveConfig;
         private System.Windows.Forms.TabPage tp_ChangeLog;
         private System.Windows.Forms.RichTextBox rtb_ChangeLog;
-        private System.Windows.Forms.TabPage tp_Chat;
-        private Awesomium.Windows.Forms.WebControl wc_Chat;
     }
 }
 
