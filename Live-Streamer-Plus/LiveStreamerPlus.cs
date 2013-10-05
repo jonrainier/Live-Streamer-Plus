@@ -204,6 +204,9 @@ namespace Live_Streamer_Plus
             else
             {
                 //this.OpenTwitchChat();
+                ProcessStartInfo StartChat = new ProcessStartInfo("http://www.twitch.tv/chat/embed?channel=" + tb_DoStreamer.Text + "&popout_chat=true");
+                StartChat.WindowStyle = ProcessWindowStyle.Normal;
+                Process.Start(StartChat);
 
                 Log("Started Stream: " + "'" + tb_DoStreamer.Text + "'" + " " + "on" + " '" + cb_SelectedStream.Text + "' " + " with" + " '" + cb_Quality.Text + "' " + "quality.");
                 Process StartCMD = new Process();
