@@ -114,28 +114,34 @@ namespace Live_Streamer_Plus
             Process.Start(e.LinkText);
         }
 
+        public static string ApplicationDataLocation = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+
+        private void LoadConfigFile()
+        {
+
+        }
+
         //Check if the prerequisites are installed.
         private void CheckInstalledPrograms(int Programs)
         {
-            string ApplicationDataLocation = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            try
-            {
-                string VLCInstallLocation = (string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\VideoLAN\\VLC", "", null);
-                string LivestreamerConfigLocation = ApplicationDataLocation + @"\livestreamer\livestreamerrc";
-                string LivestreamerReadFile = File.ReadAllText(LivestreamerConfigLocation);
-
-                rtb_ConfigEditor.Text = LivestreamerReadFile;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("One of the dependencies is not installed. Please make sure to install all dependencies before running this application.\r\n\r\n\r\n" +
-                    ex.ToString(), ApplicationName, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Application.Exit();
-            }
-
-
             switch (Programs)
             {
+                case 1:
+                    try
+                    {
+                        string VLCInstallLocation = (string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\VideoLAN\\VLC", "", null);
+                        string LivestreamerConfigLocation = ApplicationDataLocation + @"\livestreamer\livestreamerrc";
+                        string LivestreamerReadFile = File.ReadAllText(LivestreamerConfigLocation);
+
+                        rtb_ConfigEditor.Text = LivestreamerReadFile;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("One of the dependencies is not installed. Please make sure to install all dependencies before running this application.\r\n\r\n\r\n" +
+                            ex.ToString(), ApplicationName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Application.Exit();
+                    }
+                    break;
                 case 2:
                     try
                     {
