@@ -41,8 +41,10 @@ Examples (Quality)
 
  - [TSM_Dyrus][3]
  - [PhantomL0rd][4]
+ - [Lirik][5]
 
   [1]: http://i.imgur.com/YbYbruF.png
   [2]: http://meta.pwnoz0r.com/20130929035919200.png
   [3]: http://i.imgur.com/JWEeWIQ.png
   [4]: http://i.imgur.com/6XAov4x.png
+  [5]: http://i.imgur.com/xAKi9Nt.png
