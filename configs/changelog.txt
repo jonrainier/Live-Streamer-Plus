@@ -1,3 +1,6 @@
+1.0.0.11:
+	* Updated to support the latest URLS.
+-----------
 1.0.0.10:
 	* Fixed the logical aspect of writing to the configuration file. #5
 -----------
