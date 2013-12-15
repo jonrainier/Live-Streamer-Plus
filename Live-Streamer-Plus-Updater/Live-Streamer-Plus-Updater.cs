@@ -25,7 +25,7 @@ namespace Live_Streamer_Plus_Updater
         {
             WebClient GetUpdateURL = new WebClient();
             GetUpdateURL.Proxy = null;
-            string GetUpdateURLString = GetUpdateURL.DownloadString("http://74.91.121.95:8080/LiveStreamerPlus/Configs/download.txt");
+            string GetUpdateURLString = GetUpdateURL.DownloadString("http://pwnoz0r.com/software/lsp/configs/download.txt");
             DownloadUpdate(GetUpdateURLString);
         }
 

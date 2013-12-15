@@ -44,7 +44,7 @@ namespace Live_Streamer_Plus
             WebClient GetUpdateURL = new WebClient();
             GetUpdateURL.Proxy = null;
 
-            string GetUpdateURLAsString = GetUpdateURL.DownloadString("http://74.91.121.95:8080/LiveStreamerPlus/Configs/version.txt");
+            string GetUpdateURLAsString = GetUpdateURL.DownloadString("http://pwnoz0r.com/software/lsp/configs/version.txt");
             string ProductVersionAsString = Application.ProductVersion;
 
             try
@@ -77,25 +77,12 @@ namespace Live_Streamer_Plus
             }
         }
 
-        //Once the channel is selected open up the chat.
-        /*
-        private void OpenTwitchChat()
-        {
-            tc_MainForm.SelectedIndex = 3;
-            System.Media.SystemSounds.Asterisk.Play();
-            //gwb_Chat.Navigate("http://www.twitch.tv/chat/embed?channel=" + tb_DoStreamer.Text + "&popout_chat=true");
-            //Uri NavigateUri = new Uri("http://www.twitch.tv/chat/embed?channel=" + tb_DoStreamer.Text + "&popout_chat=true");
-            string NavigateUri = "http://www.twitch.tv/chat/embed?channel=" + tb_DoStreamer.Text;
-            wb_Chat.Navigate(new Uri(NavigateUri));
-        }
-        */
-
         //Get the latest changelog from a remote location.
         private void DownloadChangeLog()
         {
             WebClient DownloadChangeLogClient = new WebClient();
             DownloadChangeLogClient.Proxy = null;
-            string DownloadChangeLogString = DownloadChangeLogClient.DownloadString("http://74.91.121.95:8080/LiveStreamerPlus/Configs/changelog.txt");
+            string DownloadChangeLogString = DownloadChangeLogClient.DownloadString("http://pwnoz0r.com/software/lsp/configs/changelog.txt");
             
             try
             {
@@ -115,11 +102,6 @@ namespace Live_Streamer_Plus
         }
 
         public static string ApplicationDataLocation = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-
-        private void LoadConfigFile()
-        {
-
-        }
 
         //Check if the prerequisites are installed.
         private void CheckInstalledPrograms(int Programs)
