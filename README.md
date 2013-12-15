@@ -9,6 +9,7 @@ Live Streamer Plus is an open source application that enables people to view str
 Prerequisites
 -------------
 
+ - [.NET Framework 4.0](http://www.microsoft.com/en-us/download/details.aspx?id=17851) [Required]
  - [VLC Media Player](http://www.videolan.org/vlc/index.html) [Required]
  - [Livestreamer (CMD)](http://livestreamer.tanuki.se/en/latest/) [Required]
 
