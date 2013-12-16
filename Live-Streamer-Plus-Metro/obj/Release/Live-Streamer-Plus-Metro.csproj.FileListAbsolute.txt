@@ -1,0 +1,16 @@
+C:\Users\Pwnoz0r\Documents\Visual Studio 2012\Projects\Live-Streamer-Plus-Metro\Live-Streamer-Plus-Metro\bin\Release\Live-Streamer-Plus.exe.config
+C:\Users\Pwnoz0r\Documents\Visual Studio 2012\Projects\Live-Streamer-Plus-Metro\Live-Streamer-Plus-Metro\bin\Release\Live-Streamer-Plus.exe
+C:\Users\Pwnoz0r\Documents\Visual Studio 2012\Projects\Live-Streamer-Plus-Metro\Live-Streamer-Plus-Metro\bin\Release\Live-Streamer-Plus.pdb
+C:\Users\Pwnoz0r\Documents\Visual Studio 2012\Projects\Live-Streamer-Plus-Metro\Live-Streamer-Plus-Metro\bin\Release\Elysium.dll
+C:\Users\Pwnoz0r\Documents\Visual Studio 2012\Projects\Live-Streamer-Plus-Metro\Live-Streamer-Plus-Metro\bin\Release\Elysium.pdb
+C:\Users\Pwnoz0r\Documents\Visual Studio 2012\Projects\Live-Streamer-Plus-Metro\Live-Streamer-Plus-Metro\bin\Release\Elysium.xml
+C:\Users\Pwnoz0r\Documents\Visual Studio 2012\Projects\Live-Streamer-Plus-Metro\Live-Streamer-Plus-Metro\obj\Release\LiveStreamerPlus.baml
+C:\Users\Pwnoz0r\Documents\Visual Studio 2012\Projects\Live-Streamer-Plus-Metro\Live-Streamer-Plus-Metro\obj\Release\App.baml
+C:\Users\Pwnoz0r\Documents\Visual Studio 2012\Projects\Live-Streamer-Plus-Metro\Live-Streamer-Plus-Metro\obj\Release\LiveStreamerPlus.g.cs
+C:\Users\Pwnoz0r\Documents\Visual Studio 2012\Projects\Live-Streamer-Plus-Metro\Live-Streamer-Plus-Metro\obj\Release\App.g.cs
+C:\Users\Pwnoz0r\Documents\Visual Studio 2012\Projects\Live-Streamer-Plus-Metro\Live-Streamer-Plus-Metro\obj\Release\Live-Streamer-Plus_MarkupCompile.cache
+C:\Users\Pwnoz0r\Documents\Visual Studio 2012\Projects\Live-Streamer-Plus-Metro\Live-Streamer-Plus-Metro\obj\Release\Live-Streamer-Plus.g.resources
+C:\Users\Pwnoz0r\Documents\Visual Studio 2012\Projects\Live-Streamer-Plus-Metro\Live-Streamer-Plus-Metro\obj\Release\LiveStreamerPlus.Properties.Resources.resources
+C:\Users\Pwnoz0r\Documents\Visual Studio 2012\Projects\Live-Streamer-Plus-Metro\Live-Streamer-Plus-Metro\obj\Release\Live-Streamer-Plus-Metro.csproj.GenerateResource.Cache
+C:\Users\Pwnoz0r\Documents\Visual Studio 2012\Projects\Live-Streamer-Plus-Metro\Live-Streamer-Plus-Metro\obj\Release\Live-Streamer-Plus.exe
+C:\Users\Pwnoz0r\Documents\Visual Studio 2012\Projects\Live-Streamer-Plus-Metro\Live-Streamer-Plus-Metro\obj\Release\Live-Streamer-Plus.pdb
