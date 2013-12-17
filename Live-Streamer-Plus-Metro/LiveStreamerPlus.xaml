@@ -31,11 +31,34 @@
                 <Button x:Name="btn_Go" Content="Go!" HorizontalAlignment="Left" Margin="440,6,0,0" VerticalAlignment="Top" Width="70" TabIndex="3" Click="btn_Go_Click"/>
             </Grid>
         </TabItem>
+        <TabItem Header="Stats">
+            <Grid HorizontalAlignment="Left" Height="274" VerticalAlignment="Top" Width="520">
+                <Label Content="Streamer:" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Margin="10,10,0,0"/>
+                <Label x:Name="lbl_contentGetStreamer" Content="STREAMER-GETCONTENT" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Margin="70,10,0,0"/>
+                <Label Content="Title:" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Margin="10,35,0,0"/>
+                <Label x:Name="lbl_contentGetTitle" Content="STREAMER-GETTITLE" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Margin="70,35,0,0"/>
+                <Button x:Name="btn_PollStreamer" Content="Poll" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="430,10,0,0" Click="btn_PollStreamer_Click"/>
+                <TextBox x:Name="tb_PollStreamer" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="300,15,0,0" ToolTip="Broadcasters name you want to pull stats from."/>
+                <Label x:Name="lbl_StreamerStatus" Content="S-STATUS" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Margin="400,240,0,0"/>
+                <Label Content="Game:" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Margin="10,60,0,0"/>
+                <Label x:Name="lbl_contentGetGame" Content="STREAMER-GETGAME" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Margin="70,60,0,0"/>
+                <Label Content="Viewers:" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Margin="10,85,0,0"/>
+                <Label x:Name="lbl_contentGetViewerCount" Content="STREAMER-GETVIEWERCOUNT" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Margin="70,85,0,0"/>
+                <Image x:Name="img_streamerOffline" HorizontalAlignment="Left" Height="70" Margin="420,170,0,0" VerticalAlignment="Top" Width="70"/>
+            </Grid>
+        </TabItem>
         <TabItem Header="Favorites" IsEnabled="False"/>
         <TabItem Header="Settings">
             <Grid>
-                <CheckBox x:Name="checkBox_doChat" Content="Browser Chat" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Width="100" ToolTip="If checked it will open up the broadcasters chat in your default browser."/>
-                <Button x:Name="btn_SaveSettings" Content="Save" HorizontalAlignment="Left" Margin="440,230,0,0" VerticalAlignment="Top" Width="75" Click="btn_SaveSettings_Click" ToolTip="Save your settings!"/>
+                <CheckBox x:Name="checkBox_doChat" Content="Browser Chat" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,30,0,0" Width="100" ToolTip="If checked it will open up the broadcasters chat in your default browser."/>
+                <Button x:Name="btn_SaveSettings" Content="Save" HorizontalAlignment="Left" Margin="440,230,0,0" VerticalAlignment="Top" Width="75" Click="btn_SaveSettings_Click" ToolTip="Save settings."/>
+                <Button x:Name="btn_forceUpdate" Content="Force Update" HorizontalAlignment="Left" Margin="415,10,0,0" VerticalAlignment="Top" Width="98" Background="#BFCD0101" Click="btn_forceUpdate_Click"/>
+                <CheckBox x:Name="checkbox_doStats" Content="Get Stats" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,130,0,0" Width="100" ToolTip="If checked it will return stats about the broadcaster." IsEnabled="False"/>
+                <CheckBox x:Name="checkbox_getAvatar" Content="Get Avatar" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,150,0,0" Width="100" ToolTip="If checked it will get the broadcasters avatar. UNCHECK IF STATS ARE TAKING A LONG TIME TO LOAD" IsEnabled="False"/>
+                <Grid HorizontalAlignment="Left" Height="100" Margin="5,10,0,0" VerticalAlignment="Top" Width="229">
+                    <GroupBox Header="Chat" Margin="0,0,0,0"/>
+                    <GroupBox Header="Stats" Margin="0,100,0,-100"/>
+                </Grid>
             </Grid>
         </TabItem>
     </TabControl>

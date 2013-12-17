@@ -6,6 +6,7 @@ using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Media;
 using System.Net;
 using System.Reflection;
 using System.Text;
@@ -46,15 +47,7 @@ namespace LiveStreamerPlus
             this.CheckForUpdates();
             this.CheckInstalledPrograms(1);
             this.checkSettings();
-        }
-
-        private void checkSettings()
-        {
-            int doChat = Int32.Parse(ConfigurationManager.AppSettings["doChat"]);
-            if (!(doChat == 0))
-            {
-                checkBox_doChat.IsChecked = true;
-            }
+            this.clearContent();
         }
 
         // Check for updates for the application.
@@ -125,14 +118,13 @@ namespace LiveStreamerPlus
         // When the "Go!" button is clicked, do things.
         private void btn_Go_Click(object sender, RoutedEventArgs e)
         {            
-            if (tb_Channel.Text == string.Empty || cb_StreamQuality.Text == string.Empty)
+            if (tb_Channel.Text == string.Empty)
             {
                 System.Media.SystemSounds.Hand.Play();
                 classLog.logWithTime("Error: One of the required fields were left blank!", rtb_Console);
             }
             else
             {
-                //this.OpenTwitchChat();
                 ProcessStartInfo StartChat = new ProcessStartInfo("http://www.twitch.tv/chat/embed?channel=" + tb_Channel.Text + "&popout_chat=true");
                 StartChat.WindowStyle = ProcessWindowStyle.Normal;
                 if (checkBox_doChat.IsChecked == true)
@@ -142,7 +134,6 @@ namespace LiveStreamerPlus
 
                 string sourceTwitch = "twitch.tv";
 
-                classLog.logWithTime("Started Stream: " + "'" + tb_Channel.Text + "'" + " " + "on" + " '" + cb_StreamSource.Text + "' " + " with" + " '" + cb_StreamQuality.Text + "' " + "quality.", rtb_Console);
                 Process StartCMD = new Process();
                 StartCMD.StartInfo.FileName = "cmd.exe";
                 if (cb_StreamSource.SelectedIndex == 0)
@@ -152,7 +143,37 @@ namespace LiveStreamerPlus
                 StartCMD.StartInfo.RedirectStandardOutput = true;
                 StartCMD.StartInfo.CreateNoWindow = true;
                 StartCMD.StartInfo.UseShellExecute = false;
-                StartCMD.Start();
+                try
+                {
+                    StartCMD.Start();
+                    classLog.logWithTime("Started Stream: " + "'" + tb_Channel.Text + "'" + " " + "on" + " '" + cb_StreamSource.Text + "' " + " with" + " '" + cb_StreamQuality.Text + "' " + "quality.", rtb_Console);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), ApplicationName, MessageBoxButton.OK, MessageBoxImage.Error);
+                    this.Close();
+                }
+            }
+        }
+
+        // Check the config for user settings.
+        private void checkSettings()
+        {
+            int doChat = Int32.Parse(ConfigurationManager.AppSettings["doChat"]);
+            int doStats = Int32.Parse(ConfigurationManager.AppSettings["doStats"]);
+            int getAvatar = Int32.Parse(ConfigurationManager.AppSettings["getAvatar"]);
+
+            if (!(doChat == 0))
+            {
+                checkBox_doChat.IsChecked = true;
+            }
+            if (!(doStats == 0))
+            {
+                checkbox_doStats.IsChecked = true;
+            }
+            if (!(getAvatar == 0))
+            {
+                checkbox_getAvatar.IsChecked = true;
             }
         }
 
@@ -170,7 +191,114 @@ namespace LiveStreamerPlus
                 appConfig.AppSettings.Settings.Remove("doChat");
                 appConfig.AppSettings.Settings.Add("doChat", "0");
             }
-            appConfig.Save(ConfigurationSaveMode.Minimal);
+            if (checkbox_doStats.IsChecked == true)
+            {
+                appConfig.AppSettings.Settings.Remove("doStats");
+                appConfig.AppSettings.Settings.Add("doStats", "1");
+            }
+            else
+            {
+                appConfig.AppSettings.Settings.Remove("doStats");
+                appConfig.AppSettings.Settings.Add("doStats", "0");
+            }
+            if (checkbox_getAvatar.IsChecked == true)
+            {
+                appConfig.AppSettings.Settings.Remove("getAvatar");
+                appConfig.AppSettings.Settings.Add("getAvatar", "1");
+            }
+            else
+            {
+                appConfig.AppSettings.Settings.Remove("getAvatar");
+                appConfig.AppSettings.Settings.Add("getAvatar", "0");
+            }
+
+            // Do the saving
+            try
+            {
+                appConfig.Save(ConfigurationSaveMode.Minimal);
+                SystemSounds.Asterisk.Play();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), ApplicationName, MessageBoxButton.OK, MessageBoxImage.Error);
+                this.Close();
+            }
+        }
+
+        private void btn_forceUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to force update?", ApplicationName, MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
+            if (result == MessageBoxResult.Yes)
+            {
+                this.DoUpdate();
+            }
+        }
+
+        private void clearContent()
+        {
+            lbl_contentGetStreamer.Content = string.Empty;
+            lbl_contentGetTitle.Content = string.Empty;
+            lbl_StreamerStatus.Content = string.Empty;
+            lbl_contentGetGame.Content = string.Empty;
+            lbl_contentGetViewerCount.Content = string.Empty;
+
+            img_streamerOffline.Source = new BitmapImage(new Uri(@"Resources/image_placeholder.png", UriKind.RelativeOrAbsolute));
+        }
+
+        private void btn_PollStreamer_Click(object sender, RoutedEventArgs e)
+        {
+            this.clearContent();
+            if (tb_PollStreamer.Text == string.Empty)
+            {
+                MessageBox.Show("One of the required fields were left blank!", ApplicationName, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                ParseData classParseData = new ParseData();
+                string doReturnData = classParseData.getData(tb_PollStreamer.Text);
+
+                var converter = new System.Windows.Media.BrushConverter();
+                var brushRed = (Brush)converter.ConvertFromString("#FF0000");
+                var brushGreen = (Brush)converter.ConvertFromString("#33FF00");
+
+                lbl_contentGetStreamer.Content = tb_PollStreamer.Text;
+
+                if (doReturnData.Contains("!(LIVE)"))
+                {
+                    lbl_StreamerStatus.Foreground = brushRed;
+                    lbl_StreamerStatus.Content = "STREAMER OFFLINE";
+                }
+                else
+                {
+                    string finalTitle = doReturnData.Split('$')[0];
+                    string finalGame = doReturnData.Split('$')[1];
+                    string finalViewers = doReturnData.Split('$')[2];
+                    var finalImage = doReturnData.Split('$')[3];
+                    lbl_contentGetTitle.Content = finalTitle;
+                    lbl_contentGetGame.Content = finalGame;
+                    lbl_contentGetViewerCount.Content = finalViewers;
+
+                    if (checkbox_getAvatar.IsChecked == true)
+                    {
+                        img_streamerOffline.Source = getStreamerImage(finalImage);
+                    }
+
+                    lbl_StreamerStatus.Foreground = brushGreen;
+                    lbl_StreamerStatus.Content = "STREAMER ONLINE";
+                }
+            }
+            tb_PollStreamer.Text = string.Empty;
+        }
+
+        private ImageSource getStreamerImage(string s)
+        {
+            var image = new Image();
+            BitmapImage bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            bitmap.UriSource = new Uri(s, UriKind.Absolute);
+            bitmap.EndInit();
+
+            return bitmap;
         }
     }
 }

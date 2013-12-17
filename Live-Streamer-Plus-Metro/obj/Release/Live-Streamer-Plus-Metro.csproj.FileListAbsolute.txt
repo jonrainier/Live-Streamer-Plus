@@ -14,3 +14,6 @@ C:\Users\Pwnoz0r\Documents\Visual Studio 2012\Projects\Live-Streamer-Plus-Metro\
 C:\Users\Pwnoz0r\Documents\Visual Studio 2012\Projects\Live-Streamer-Plus-Metro\Live-Streamer-Plus-Metro\obj\Release\Live-Streamer-Plus-Metro.csproj.GenerateResource.Cache
 C:\Users\Pwnoz0r\Documents\Visual Studio 2012\Projects\Live-Streamer-Plus-Metro\Live-Streamer-Plus-Metro\obj\Release\Live-Streamer-Plus.exe
 C:\Users\Pwnoz0r\Documents\Visual Studio 2012\Projects\Live-Streamer-Plus-Metro\Live-Streamer-Plus-Metro\obj\Release\Live-Streamer-Plus.pdb
+C:\Users\Pwnoz0r\Documents\Visual Studio 2012\Projects\Live-Streamer-Plus-Metro\Live-Streamer-Plus-Metro\obj\Release\Live-Streamer-Plus-Metro.csprojResolveAssemblyReference.cache
+C:\Users\Pwnoz0r\Documents\Visual Studio 2012\Projects\Live-Streamer-Plus-Metro\Live-Streamer-Plus-Metro\bin\Release\Newtonsoft.Json.dll
+C:\Users\Pwnoz0r\Documents\Visual Studio 2012\Projects\Live-Streamer-Plus-Metro\Live-Streamer-Plus-Metro\bin\Release\Newtonsoft.Json.xml
