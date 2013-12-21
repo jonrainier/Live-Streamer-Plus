@@ -231,6 +231,11 @@ namespace LiveStreamerPlus
                 appConfig.AppSettings.Settings.Add("getChattyPath", "0");
             }
 
+            this.appConfigSave();
+        }
+
+        private void appConfigSave()
+        {
             // Do the saving
             try
             {
@@ -323,23 +328,14 @@ namespace LiveStreamerPlus
         private void chattyPath()
         {
             OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Chatty|*.jar";
             Nullable<bool> result = ofd.ShowDialog();
             if (result == true)
             {
                 appConfig.AppSettings.Settings.Remove("getChattyPath");
                 appConfig.AppSettings.Settings.Add("getChattyPath", ofd.FileName);
 
-                // Do the saving
-                try
-                {
-                    appConfig.Save(ConfigurationSaveMode.Minimal);
-                    SystemSounds.Asterisk.Play();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString(), ApplicationName, MessageBoxButton.OK, MessageBoxImage.Error);
-                    this.Close();
-                }
+                this.appConfigSave();
             }
             else
             {
