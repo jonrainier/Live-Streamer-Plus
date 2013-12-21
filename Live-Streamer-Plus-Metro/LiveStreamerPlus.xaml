@@ -51,6 +51,7 @@
         <TabItem Header="Settings">
             <Grid>
                 <CheckBox x:Name="checkBox_doChat" Content="Browser Chat" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,30,0,0" Width="100" ToolTip="If checked it will open up the broadcasters chat in your default browser."/>
+                <CheckBox x:Name="checkBox_doChatty" Content="Chatty IRC" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,50,0,0" Width="80" ToolTip="If checked it will open up the Chatty application." Checked="checkBox_doChatty_Checked"/>
                 <Button x:Name="btn_SaveSettings" Content="Save" HorizontalAlignment="Left" Margin="440,230,0,0" VerticalAlignment="Top" Width="75" Click="btn_SaveSettings_Click" ToolTip="Save settings."/>
                 <Button x:Name="btn_forceUpdate" Content="Force Update" HorizontalAlignment="Left" Margin="415,10,0,0" VerticalAlignment="Top" Width="98" Background="#BFCD0101" Click="btn_forceUpdate_Click"/>
                 <CheckBox x:Name="checkbox_doStats" Content="Get Stats" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,130,0,0" Width="100" ToolTip="If checked it will return stats about the broadcaster." IsEnabled="False"/>

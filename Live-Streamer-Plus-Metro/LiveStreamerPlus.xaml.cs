@@ -115,6 +115,36 @@ namespace LiveStreamerPlus
             }
         }
 
+        // Check the config for user settings.
+        int doChat = Int32.Parse(ConfigurationManager.AppSettings["doChat"]);
+        int doStats = Int32.Parse(ConfigurationManager.AppSettings["doStats"]);
+        int getAvatar = Int32.Parse(ConfigurationManager.AppSettings["getAvatar"]);
+        string getChattyPath = ConfigurationManager.AppSettings["getChattyPath"];
+
+        private void checkSettings()
+        {
+            if (!(doChat == 0))
+            {
+                checkBox_doChat.IsChecked = true;
+            }
+            if (!(doStats == 0))
+            {
+                checkbox_doStats.IsChecked = true;
+            }
+            if (!(getAvatar == 0))
+            {
+                checkbox_getAvatar.IsChecked = true;
+            }
+            if (!(getChattyPath.Contains(".jar")))
+            {
+                checkBox_doChatty.IsChecked = false;
+            }
+            else
+            {
+                checkBox_doChatty.IsChecked = true;
+            }
+        }
+
         // When the "Go!" button is clicked, do things.
         private void btn_Go_Click(object sender, RoutedEventArgs e)
         {            
@@ -130,6 +160,10 @@ namespace LiveStreamerPlus
                 if (checkBox_doChat.IsChecked == true)
                 {
                     Process.Start(StartChat);
+                }
+                if (checkBox_doChatty.IsChecked == true)
+                {
+                    this.startChatty(getChattyPath);
                 }
 
                 string sourceTwitch = "twitch.tv";
@@ -153,27 +187,6 @@ namespace LiveStreamerPlus
                     MessageBox.Show(ex.ToString(), ApplicationName, MessageBoxButton.OK, MessageBoxImage.Error);
                     this.Close();
                 }
-            }
-        }
-
-        // Check the config for user settings.
-        private void checkSettings()
-        {
-            int doChat = Int32.Parse(ConfigurationManager.AppSettings["doChat"]);
-            int doStats = Int32.Parse(ConfigurationManager.AppSettings["doStats"]);
-            int getAvatar = Int32.Parse(ConfigurationManager.AppSettings["getAvatar"]);
-
-            if (!(doChat == 0))
-            {
-                checkBox_doChat.IsChecked = true;
-            }
-            if (!(doStats == 0))
-            {
-                checkbox_doStats.IsChecked = true;
-            }
-            if (!(getAvatar == 0))
-            {
-                checkbox_getAvatar.IsChecked = true;
             }
         }
 
@@ -210,6 +223,12 @@ namespace LiveStreamerPlus
             {
                 appConfig.AppSettings.Settings.Remove("getAvatar");
                 appConfig.AppSettings.Settings.Add("getAvatar", "0");
+            }
+            if (checkBox_doChatty.IsChecked == true) { }
+            else
+            {
+                appConfig.AppSettings.Settings.Remove("getChattyPath");
+                appConfig.AppSettings.Settings.Add("getChattyPath", "0");
             }
 
             // Do the saving
@@ -299,6 +318,63 @@ namespace LiveStreamerPlus
             bitmap.EndInit();
 
             return bitmap;
+        }
+
+        private void chattyPath()
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            Nullable<bool> result = ofd.ShowDialog();
+            if (result == true)
+            {
+                appConfig.AppSettings.Settings.Remove("getChattyPath");
+                appConfig.AppSettings.Settings.Add("getChattyPath", ofd.FileName);
+
+                // Do the saving
+                try
+                {
+                    appConfig.Save(ConfigurationSaveMode.Minimal);
+                    SystemSounds.Asterisk.Play();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), ApplicationName, MessageBoxButton.OK, MessageBoxImage.Error);
+                    this.Close();
+                }
+            }
+            else
+            {
+                checkBox_doChatty.IsChecked = false;
+            }
+        }
+
+        private void startChatty(string path)
+        {
+            Process StartChatty = new Process();
+            StartChatty.StartInfo.FileName = path;
+            StartChatty.StartInfo.Arguments = "-channel " + tb_Channel.Text;
+            StartChatty.Start();
+        }
+
+        private void checkBox_doChatty_Checked(object sender, RoutedEventArgs e)
+        {
+            string getChattyPath = ConfigurationManager.AppSettings["getChattyPath"];
+            Console.WriteLine(getChattyPath);
+            if (!(getChattyPath == "0"))
+            {
+                // do nothing
+            }
+            else
+            {
+                MessageBoxResult result = MessageBox.Show("Path not found for Chatty. Would you like to set one now?", ApplicationName, MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
+                if (result == MessageBoxResult.Yes)
+                {
+                    this.chattyPath();
+                }
+                else
+                {
+                    checkBox_doChatty.IsChecked = false;
+                }
+            }
         }
     }
 }
