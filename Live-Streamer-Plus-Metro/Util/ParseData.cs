@@ -44,6 +44,8 @@ namespace LiveStreamerPlus.Util
             }
             else
             {
+                Console.WriteLine(allReturnData);
+
                 string parseTitleZ = returnLine(allReturnData, 29, 17);
                 string parseTitleFinalZ = parseTitleZ.Substring(0, parseTitleZ.Length - 2);
                 string parseGameZ = returnLine(allReturnData, 45, 18);
