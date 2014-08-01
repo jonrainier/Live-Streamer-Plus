@@ -29,21 +29,21 @@ namespace LiveStreamerPlus.Util
 
             if (Regex.Matches(allReturnData, "subcategory").Count == 2)
             {
-                string parseTitle = returnLine(allReturnData, 28, 17);
+                string allReturnDataZ = allReturnData;
+
+                string parseTitle = returnLine(allReturnDataZ, 8, 14);
                 string parseTitleFinal = parseTitle.Substring(0, parseTitle.Length - 2);
-                string parseGame = returnLine(allReturnData, 44, 18);
+                string parseGame = returnLine(allReturnDataZ, 36, 18);
                 string parseGameFinal = parseGame.Substring(0, parseGame.Length - 2);
-                string parseViewers = returnLine(allReturnData, 10, 20);
+                string parseViewers = returnLine(allReturnDataZ, 9, 21);
                 string parseViewersFinal = parseViewers.Substring(0, parseViewers.Length - 1);
-                string parseOfflineImage = returnLine(allReturnData, 31, 26);
+                string parseOfflineImage = returnLine(allReturnDataZ, 31, 26);
                 string parseOfflineImageFinal = parseOfflineImage.Substring(0, parseOfflineImage.Length - 2);
 
                 return parseTitleFinal + "$" + parseGameFinal + "$" + parseViewersFinal + "$" + parseOfflineImageFinal;
             }
             else
             {
-
-                Console.WriteLine(allReturnData);
                 string parseTitleZ = returnLine(allReturnData, 29, 17);
                 string parseTitleFinalZ = parseTitleZ.Substring(0, parseTitleZ.Length - 2);
                 string parseGameZ = returnLine(allReturnData, 45, 18);
