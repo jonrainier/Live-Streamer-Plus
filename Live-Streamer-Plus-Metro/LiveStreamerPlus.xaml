@@ -6,9 +6,9 @@
               params:Design.Theme="Dark"
               params:Design.AccentBrush="{x:Static metro:AccentBrushes.Blue}"
               params:Design.ContrastBrush="White"
-              Title="Live-Streamer-Plus" Height="350" Width="526.032" ResizeMode="NoResize" Loaded="formLiveStreamerPlus_Loaded">
-    <TabControl>
-        <TabItem Header="Stream">
+              Title="Live-Streamer-Plus" Height="350" Width="526.032" ResizeMode="CanMinimize"  Loaded="formLiveStreamerPlus_Loaded" WindowStartupLocation="CenterScreen">
+    <TabControl x:Name="tabController" BorderBrush="#FF171717" Foreground="#FF171717">
+        <TabItem Header="Stream" TabIndex="0">
             <Grid Background="#FF171717">
                 <Label Content="Stream:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Foreground="White"/>
                 <ComboBox x:Name="cb_StreamSource" HorizontalAlignment="Left" Margin="65,6,0,0" VerticalAlignment="Top" Width="120" IsReadOnly="True" SelectedIndex="0" TabIndex="0">
@@ -21,7 +21,7 @@
                         </Paragraph>
                     </FlowDocument>
                 </RichTextBox>
-                <TextBox x:Name="tb_Channel" HorizontalAlignment="Left" Height="31" Margin="190,6,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" ToolTip="Broadcaster you want to watch." TabIndex="1"/>
+                <TextBox x:Name="tb_Channel" HorizontalAlignment="Left" Height="31" Margin="190,6,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" ToolTip="Broadcaster you want to watch." TabIndex="1" KeyDown="btn_Enter_Handler"/>
                 <ComboBox x:Name="cb_StreamQuality" HorizontalAlignment="Left" Margin="315,6,0,0" VerticalAlignment="Top" Width="120" IsReadOnly="True" SelectedIndex="0" TabIndex="2">
                     <ComboBoxItem Content="source"/>
                     <ComboBoxItem Content="high"/>
@@ -31,34 +31,76 @@
                 <Button x:Name="btn_Go" Content="Go!" HorizontalAlignment="Left" Margin="440,6,0,0" VerticalAlignment="Top" Width="70" TabIndex="3" Click="btn_Go_Click"/>
             </Grid>
         </TabItem>
-        <TabItem Header="Stats">
+        <TabItem Header="Stats" TabIndex="1">
             <Grid HorizontalAlignment="Left" Height="274" VerticalAlignment="Top" Width="520">
                 <Label Content="Streamer:" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Margin="10,10,0,0"/>
                 <Label x:Name="lbl_contentGetStreamer" Content="STREAMER-GETCONTENT" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Margin="70,10,0,0"/>
                 <Label Content="Title:" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Margin="10,35,0,0"/>
                 <Label x:Name="lbl_contentGetTitle" Content="STREAMER-GETTITLE" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Margin="70,35,0,0"/>
                 <Button x:Name="btn_PollStreamer" Content="Poll" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="430,10,0,0" Click="btn_PollStreamer_Click"/>
-                <TextBox x:Name="tb_PollStreamer" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="300,15,0,0" ToolTip="Broadcasters name you want to pull stats from."/>
-                <Label x:Name="lbl_StreamerStatus" Content="S-STATUS" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Margin="400,240,0,0"/>
+                <TextBox x:Name="tb_PollStreamer" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="300,15,0,0" ToolTip="Broadcasters name you want to pull stats from." KeyDown="pollStreamer_Enter"/>
+                <Label x:Name="lbl_StreamerStatus" Content="S-STATUS" Foreground="White" Margin="345,240,0,0" HorizontalAlignment="Left" Width="118" Height="25" VerticalAlignment="Top"/>
                 <Label Content="Game:" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Margin="10,60,0,0"/>
                 <Label x:Name="lbl_contentGetGame" Content="STREAMER-GETGAME" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Margin="70,60,0,0"/>
                 <Label Content="Viewers:" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Margin="10,85,0,0"/>
                 <Label x:Name="lbl_contentGetViewerCount" Content="STREAMER-GETVIEWERCOUNT" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Margin="70,85,0,0"/>
                 <Image x:Name="img_streamerOffline" HorizontalAlignment="Left" Height="70" Margin="420,170,0,0" VerticalAlignment="Top" Width="70"/>
+                <Label x:Name="lbl_ErrorMessage" Content="E-MESSAGE" VerticalAlignment="Top" Foreground="White" HorizontalAlignment="Left" Margin="57,240,0,0" Width="115"/>
             </Grid>
         </TabItem>
-        <TabItem Header="Favorites" IsEnabled="False"/>
-        <TabItem Header="Settings">
+        <TabItem Header="Favorites" IsEnabled="True" TabIndex="2">
+            <Grid HorizontalAlignment="Left" Height="274" VerticalAlignment="Top" Width="520">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="233*"/>
+                    <RowDefinition Height="41*"/>
+                </Grid.RowDefinitions>
+                <Button x:Name="addStreamBtn" Content="Add" Margin="203,224,242,19" ToolTip="Click Here to add a favorite streamer." Grid.RowSpan="2" Click="addStreamBtn_Click"/>
+                <DataGrid Name="favStreamGrid" Margin="10,10,10,14" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserSortColumns="False" FontSize="18" HorizontalGridLinesBrush="#FF171717" VerticalGridLinesBrush="#FF171717" AutoGenerateColumns="False" CanUserResizeRows="False" RowHeaderWidth="0" ItemsSource="{Binding}" MouseDoubleClick="favStreamGrid_MouseDoubleClick" IsReadOnly="True" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <DataGrid.Resources>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="Background" Value="#FF171717"/>
+                        </Style>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="Background" Value="#FF171717"/>
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="BorderBrush" Value="#FF171717"/>
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding streamerName}" Header="Streamer Name" Width="350" />
+                        <DataGridTextColumn Binding="{Binding streamerStatus}" Header="Stream Status" Width="148"/>
+                    </DataGrid.Columns>
+                    <DataGrid.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding streamerStatus}" Value="OFFLINE">
+                                    <Setter Property="Foreground" Value="#FF0000"/>
+                                    <Setter Property="Background" Value="#FF171717"/>
+                                    <Setter Property="BorderBrush" Value="#FF171717"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding streamerStatus}" Value="ONLINE">
+                                    <Setter Property="Foreground" Value="#33FF00"/>
+                                    <Setter Property="Background" Value="#FF171717"/>
+                                    <Setter Property="BorderBrush" Value="#FF171717"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.CellStyle>
+                </DataGrid>
+                <Button x:Name="btn_RemoveFavStream" Content="Remove" HorizontalAlignment="Left" Margin="283,224,0,0" VerticalAlignment="Top" Width="76" RenderTransformOrigin="-0.293,-1" Background="#FFCD0101" ToolTip="Click here to remove a favorite streamer" Grid.RowSpan="2" Click="btn_RemoveFavStream_Click"/>
+                <TextBox x:Name="streamToAdd" HorizontalAlignment="Left" Height="31" Margin="10,224,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="188" Background="{x:Null}" BorderBrush="#FF017BCD" Grid.RowSpan="2" GotFocus="streamToAdd_GotFocus" Foreground="#FF595959" Text="Enter Stream Name" KeyDown="streamToAdd_KeyDown"/>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Settings" TabIndex="3">
             <Grid>
                 <CheckBox x:Name="checkBox_doChat" Content="Browser Chat" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,30,0,0" Width="100" ToolTip="If checked it will open up the broadcasters chat in your default browser."/>
-                <CheckBox x:Name="checkBox_doChatty" Content="Chatty IRC" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,50,0,0" Width="80" ToolTip="If checked it will open up the Chatty application." Checked="checkBox_doChatty_Checked"/>
                 <Button x:Name="btn_SaveSettings" Content="Save" HorizontalAlignment="Left" Margin="440,230,0,0" VerticalAlignment="Top" Width="75" Click="btn_SaveSettings_Click" ToolTip="Save settings."/>
                 <Button x:Name="btn_forceUpdate" Content="Force Update" HorizontalAlignment="Left" Margin="415,10,0,0" VerticalAlignment="Top" Width="98" Background="#BFCD0101" Click="btn_forceUpdate_Click"/>
                 <CheckBox x:Name="checkbox_doStats" Content="Get Stats" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,130,0,0" Width="100" ToolTip="If checked it will return stats about the broadcaster." IsEnabled="False"/>
                 <CheckBox x:Name="checkbox_getAvatar" Content="Get Avatar" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,150,0,0" Width="100" ToolTip="If checked it will get the broadcasters avatar. UNCHECK IF STATS ARE TAKING A LONG TIME TO LOAD" IsEnabled="False"/>
                 <Grid HorizontalAlignment="Left" Height="100" Margin="5,10,0,0" VerticalAlignment="Top" Width="229">
-                    <GroupBox Header="Chat" Margin="0,0,0,0"/>
-                    <GroupBox Header="Stats" Margin="0,100,0,-100"/>
+                    <GroupBox Header="Chat" Margin="0,0,0,0" Foreground="White"/>
+                    <GroupBox Header="Stats" Margin="0,100,0,-100" Foreground="White"/>
                 </Grid>
             </Grid>
         </TabItem>

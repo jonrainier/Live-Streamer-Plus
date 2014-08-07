@@ -1,0 +1,44 @@
+2.0.0.0:
+	* Changed the app to a Metro based theme.
+	* Added a basic settings page to start.
+-----------
+1.0.0.11:
+	* Updated to support the latest URLS.
+-----------
+1.0.0.10:
+	* Fixed the logical aspect of writing to the configuration file. #5
+-----------
+1.0.0.9:
+	* Made the chat open in the default web browser when when launching the stream. (Avoids issues with cookies, logins, etc.)
+-----------
+1.0.0.8:
+	* Updated error handling.
+	* Updated updater to fetch from the new GitHub Release system.
+-----------
+1.0.0.7:
+	* Removed Awesomium Support (too many dependencies).
+	* Removed chat until a viable solution comes about.
+-----------
+1.0.0.6:
+	* Fixed auto-updater.
+-----------
+1.0.0.5:
+	+ Added a basic chat client.
+	+ Awesomium for the web-controls.
+	* 4.0 is now the target framework.
+-----------
+1.0.0.4:
+	* Fixed some syntax issues.
+-----------
+1.0.0.3:
+	+ Added comments in the code to make it appear neat.
+-----------
+1.0.0.2:
+	+ Created an auto updater for the client.
+	* Updated the installer with some additional information.
+-----------
+1.0.0.1:
+	* Added some more error handling (writing/reading the config file)
+-----------
+1.0.0.0:
+	+ Initial Release of Live Streamer Plus!

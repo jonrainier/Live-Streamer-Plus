@@ -1,0 +1,6 @@
+E:\Desktop\Live-Streamer-Plus-2.0.0.2\Live-Streamer-Plus-Metro-Updater\bin\Debug\Live-Streamer-Plus-Updater.exe.config
+E:\Desktop\Live-Streamer-Plus-2.0.0.2\Live-Streamer-Plus-Metro-Updater\bin\Debug\Live-Streamer-Plus-Updater.exe
+E:\Desktop\Live-Streamer-Plus-2.0.0.2\Live-Streamer-Plus-Metro-Updater\bin\Debug\Live-Streamer-Plus-Updater.pdb
+E:\Desktop\Live-Streamer-Plus-2.0.0.2\Live-Streamer-Plus-Metro-Updater\obj\Debug\Live-Streamer-Plus-Metro-Updater.csprojResolveAssemblyReference.cache
+E:\Desktop\Live-Streamer-Plus-2.0.0.2\Live-Streamer-Plus-Metro-Updater\obj\Debug\Live-Streamer-Plus-Updater.exe
+E:\Desktop\Live-Streamer-Plus-2.0.0.2\Live-Streamer-Plus-Metro-Updater\obj\Debug\Live-Streamer-Plus-Updater.pdb

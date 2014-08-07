@@ -3,4 +3,3 @@ C:\Users\Pwnoz0r\Documents\Visual Studio 2012\Projects\Live-Streamer-Plus-Metro\
 C:\Users\Pwnoz0r\Documents\Visual Studio 2012\Projects\Live-Streamer-Plus-Metro\Live-Streamer-Plus-Metro-Updater\bin\Release\Live-Streamer-Plus-Updater.pdb
 C:\Users\Pwnoz0r\Documents\Visual Studio 2012\Projects\Live-Streamer-Plus-Metro\Live-Streamer-Plus-Metro-Updater\obj\Release\Live-Streamer-Plus-Updater.exe
 C:\Users\Pwnoz0r\Documents\Visual Studio 2012\Projects\Live-Streamer-Plus-Metro\Live-Streamer-Plus-Metro-Updater\obj\Release\Live-Streamer-Plus-Updater.pdb
-C:\Users\Pwnoz0r\Documents\Visual Studio 2012\Projects\Live-Streamer-Plus-Metro\Live-Streamer-Plus-Metro-Updater\obj\Release\Live-Streamer-Plus-Metro-Updater.csprojResolveAssemblyReference.cache

@@ -1,1 +1,1 @@
-https://github.com/Pwnoz0r/Live-Streamer-Plus/releases/download/2.0.0.2/setup.exe
+https://github.com/Pwnoz0r/Live-Streamer-Plus/releases/download/2.0.0.1/setup.exe

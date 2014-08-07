@@ -44,7 +44,7 @@ namespace Live_Streamer_Plus_Metro_Updater
                 ConsoleOut("Successfully downloaded update version: " + NewFileVersion.ProductVersion);
                 ConsoleOut("Press any key to begin the installation...");
                 Console.ReadKey();
-                Process.Start(DownloadFileLocation);
+                Process.Start("setup.exe");
             }
             catch (WebException ex)
             {

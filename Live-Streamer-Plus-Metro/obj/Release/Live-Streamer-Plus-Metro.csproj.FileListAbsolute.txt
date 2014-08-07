@@ -17,3 +17,24 @@ C:\Users\Pwnoz0r\Documents\Visual Studio 2012\Projects\Live-Streamer-Plus-Metro\
 C:\Users\Pwnoz0r\Documents\Visual Studio 2012\Projects\Live-Streamer-Plus-Metro\Live-Streamer-Plus-Metro\obj\Release\Live-Streamer-Plus-Metro.csprojResolveAssemblyReference.cache
 C:\Users\Pwnoz0r\Documents\Visual Studio 2012\Projects\Live-Streamer-Plus-Metro\Live-Streamer-Plus-Metro\bin\Release\Newtonsoft.Json.dll
 C:\Users\Pwnoz0r\Documents\Visual Studio 2012\Projects\Live-Streamer-Plus-Metro\Live-Streamer-Plus-Metro\bin\Release\Newtonsoft.Json.xml
+E:\Desktop\Live-Streamer-Plus-2.0.0.2\Live-Streamer-Plus-Metro\bin\Release\Live-Streamer-Plus.exe.config
+E:\Desktop\Live-Streamer-Plus-2.0.0.2\Live-Streamer-Plus-Metro\obj\Release\Live-Streamer-Plus.exe
+E:\Desktop\Live-Streamer-Plus-2.0.0.2\Live-Streamer-Plus-Metro\obj\Release\Live-Streamer-Plus.pdb
+E:\Desktop\Live-Streamer-Plus-2.0.0.2\Live-Streamer-Plus-Metro\bin\Release\Live-Streamer-Plus.exe
+E:\Desktop\Live-Streamer-Plus-2.0.0.2\Live-Streamer-Plus-Metro\bin\Release\Live-Streamer-Plus.pdb
+E:\Desktop\Live-Streamer-Plus-2.0.0.2\Live-Streamer-Plus-Metro\bin\Release\Elysium.dll
+E:\Desktop\Live-Streamer-Plus-2.0.0.2\Live-Streamer-Plus-Metro\bin\Release\Newtonsoft.Json.dll
+E:\Desktop\Live-Streamer-Plus-2.0.0.2\Live-Streamer-Plus-Metro\bin\Release\Microsoft.Expression.Drawing.dll
+E:\Desktop\Live-Streamer-Plus-2.0.0.2\Live-Streamer-Plus-Metro\bin\Release\Newtonsoft.Json.xml
+E:\Desktop\Live-Streamer-Plus-2.0.0.2\Live-Streamer-Plus-Metro\bin\Release\Elysium.pdb
+E:\Desktop\Live-Streamer-Plus-2.0.0.2\Live-Streamer-Plus-Metro\bin\Release\Elysium.xml
+E:\Desktop\Live-Streamer-Plus-2.0.0.2\Live-Streamer-Plus-Metro\bin\Release\ru\Microsoft.Expression.Drawing.resources.dll
+E:\Desktop\Live-Streamer-Plus-2.0.0.2\Live-Streamer-Plus-Metro\obj\Release\LiveStreamerPlus.baml
+E:\Desktop\Live-Streamer-Plus-2.0.0.2\Live-Streamer-Plus-Metro\obj\Release\App.baml
+E:\Desktop\Live-Streamer-Plus-2.0.0.2\Live-Streamer-Plus-Metro\obj\Release\LiveStreamerPlus.g.cs
+E:\Desktop\Live-Streamer-Plus-2.0.0.2\Live-Streamer-Plus-Metro\obj\Release\App.g.cs
+E:\Desktop\Live-Streamer-Plus-2.0.0.2\Live-Streamer-Plus-Metro\obj\Release\Live-Streamer-Plus_MarkupCompile.cache
+E:\Desktop\Live-Streamer-Plus-2.0.0.2\Live-Streamer-Plus-Metro\obj\Release\Live-Streamer-Plus.g.resources
+E:\Desktop\Live-Streamer-Plus-2.0.0.2\Live-Streamer-Plus-Metro\obj\Release\LiveStreamerPlus.Properties.Resources.resources
+E:\Desktop\Live-Streamer-Plus-2.0.0.2\Live-Streamer-Plus-Metro\obj\Release\Live-Streamer-Plus-Metro.csproj.GenerateResource.Cache
+E:\Desktop\Live-Streamer-Plus-2.0.0.2\Live-Streamer-Plus-Metro\obj\Release\Live-Streamer-Plus-Metro.csprojResolveAssemblyReference.cache

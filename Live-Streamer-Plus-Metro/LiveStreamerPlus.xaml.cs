@@ -10,22 +10,21 @@ using System.Media;
 using System.Net;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace LiveStreamerPlus
 {
     public partial class MainWindow : Elysium.Controls.Window
     {
         public static string ApplicationName = "Live Streamer Plus :: " + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        private List<string> newlyAdded = new List<string>();
+        private List<string> recentlyRemoved = new List<string>();
 
         public MainWindow()
         {
@@ -39,15 +38,17 @@ namespace LiveStreamerPlus
         // Do once the form is loaded
         private void formLiveStreamerPlus_Loaded(object sender, RoutedEventArgs e)
         {
+            this.CheckForUpdates();
+            this.CheckInstalledPrograms(1);
+            this.checkSettings();
+            this.clearContent();
+            this.loadFavorites();
+
             classLog.logWithoutTime(
                 "Live Streamer Plus created by Pwnoz0r: https://github.com/pwnoz0r" + "\r\n" +
                 "VLC Media Player: http://www.videolan.org/vlc/index.html" + "\r\n" +
                 "Livestreamer: http://livestreamer.tanuki.se/en/latest" + "\r\n" +
                 "-------------------------------------------------------------" + "\r\n", rtb_Console);
-            this.CheckForUpdates();
-            this.CheckInstalledPrograms(1);
-            this.checkSettings();
-            this.clearContent();
         }
 
         // Check for updates for the application.
@@ -115,36 +116,6 @@ namespace LiveStreamerPlus
             }
         }
 
-        // Check the config for user settings.
-        int doChat = Int32.Parse(ConfigurationManager.AppSettings["doChat"]);
-        int doStats = Int32.Parse(ConfigurationManager.AppSettings["doStats"]);
-        int getAvatar = Int32.Parse(ConfigurationManager.AppSettings["getAvatar"]);
-        string getChattyPath = ConfigurationManager.AppSettings["getChattyPath"];
-
-        private void checkSettings()
-        {
-            if (!(doChat == 0))
-            {
-                checkBox_doChat.IsChecked = true;
-            }
-            if (!(doStats == 0))
-            {
-                checkbox_doStats.IsChecked = true;
-            }
-            if (!(getAvatar == 0))
-            {
-                checkbox_getAvatar.IsChecked = true;
-            }
-            if (!(getChattyPath.Contains(".jar")))
-            {
-                checkBox_doChatty.IsChecked = false;
-            }
-            else
-            {
-                checkBox_doChatty.IsChecked = true;
-            }
-        }
-
         // When the "Go!" button is clicked, do things.
         private void btn_Go_Click(object sender, RoutedEventArgs e)
         {            
@@ -161,10 +132,6 @@ namespace LiveStreamerPlus
                 {
                     Process.Start(StartChat);
                 }
-                if (checkBox_doChatty.IsChecked == true)
-                {
-                    this.startChatty(getChattyPath);
-                }
 
                 string sourceTwitch = "twitch.tv";
 
@@ -176,11 +143,21 @@ namespace LiveStreamerPlus
                 }
                 StartCMD.StartInfo.RedirectStandardOutput = true;
                 StartCMD.StartInfo.CreateNoWindow = true;
-                StartCMD.StartInfo.UseShellExecute = false;
+                StartCMD.StartInfo.UseShellExecute = false;                
+                
                 try
                 {
                     StartCMD.Start();
-                    classLog.logWithTime("Started Stream: " + "'" + tb_Channel.Text + "'" + " " + "on" + " '" + cb_StreamSource.Text + "' " + " with" + " '" + cb_StreamQuality.Text + "' " + "quality.", rtb_Console);
+                    classLog.logWithTime("Started Stream: " + "'" + tb_Channel.Text + "'" + " " + "on" + " '" + cb_StreamSource.Text + "' " + " with" + " '" + cb_StreamQuality.Text + "' " + "quality.", rtb_Console);;
+
+                    //Test Code for redirecting cmd output to rtb_Console.
+                    //while (!StartCMD.HasExited)
+                    //{
+                    //    if (!newOutput.EndOfStream)
+                    //    {
+                    //        classLog.logWithTime(newOutput.ReadLine(), rtb_Console);
+                    //    }
+                    //}
                 }
                 catch (Exception ex)
                 {
@@ -190,10 +167,42 @@ namespace LiveStreamerPlus
             }
         }
 
+        // Check the config for user settings.
+        private void checkSettings()
+        {
+            int doStats;
+            int getAvatar;
+            int doChat = Int32.Parse(ConfigurationManager.AppSettings["doChat"]);
+
+            if (ConfigurationManager.AppSettings["doStats"] != null)
+                doStats = Int32.Parse(ConfigurationManager.AppSettings["doStats"]);
+            else
+                doStats = 0;
+
+            if (ConfigurationManager.AppSettings["getAvatar"] != null)
+                getAvatar = Int32.Parse(ConfigurationManager.AppSettings["getAvatar"]);
+            else
+                getAvatar = 0;
+
+            if (!(doChat == 0))
+            {
+                checkBox_doChat.IsChecked = true;
+            }
+            if (!(doStats == 0))
+            {
+                checkbox_doStats.IsChecked = true;
+            }
+            if (!(getAvatar == 0))
+            {
+                checkbox_getAvatar.IsChecked = true;
+            }
+        }
+
         Configuration appConfig = ConfigurationManager.OpenExeConfiguration(Assembly.GetExecutingAssembly().Location);
 
         private void btn_SaveSettings_Click(object sender, RoutedEventArgs e)
         {
+            appConfig.AppSettings.Settings.Remove("favStream");
             if (checkBox_doChat.IsChecked == true)
             {
                 appConfig.AppSettings.Settings.Remove("doChat");
@@ -224,18 +233,7 @@ namespace LiveStreamerPlus
                 appConfig.AppSettings.Settings.Remove("getAvatar");
                 appConfig.AppSettings.Settings.Add("getAvatar", "0");
             }
-            if (checkBox_doChatty.IsChecked == true) { }
-            else
-            {
-                appConfig.AppSettings.Settings.Remove("getChattyPath");
-                appConfig.AppSettings.Settings.Add("getChattyPath", "0");
-            }
 
-            this.appConfigSave();
-        }
-
-        private void appConfigSave()
-        {
             // Do the saving
             try
             {
@@ -265,53 +263,29 @@ namespace LiveStreamerPlus
             lbl_StreamerStatus.Content = string.Empty;
             lbl_contentGetGame.Content = string.Empty;
             lbl_contentGetViewerCount.Content = string.Empty;
+            lbl_ErrorMessage.Content = string.Empty;
 
             img_streamerOffline.Source = new BitmapImage(new Uri(@"Resources/image_placeholder.png", UriKind.RelativeOrAbsolute));
         }
 
-        private void btn_PollStreamer_Click(object sender, RoutedEventArgs e)
+        public void loadFavorites()
         {
-            this.clearContent();
-            if (tb_PollStreamer.Text == string.Empty)
+            // template - favStreamGrid.Items.Add(new favStreamers { streamerName = "test", streamerStatus = "online" });
+            string placeHolder = ConfigurationManager.AppSettings["favStream"];
+            if(placeHolder != null)
             {
-                MessageBox.Show("One of the required fields were left blank!", ApplicationName, MessageBoxButton.OK, MessageBoxImage.Error);
+                List<string> favStream = placeHolder.Split(',').ToList();
+                foreach (string s in favStream)
+                {
+                    string status = ParseData.getStatus(s);
+
+                    favStreamGrid.Items.Add(new favStreamer { streamerName = s, streamerStatus = status });
+                }        
             }
             else
             {
-                ParseData classParseData = new ParseData();
-                string doReturnData = classParseData.getData(tb_PollStreamer.Text);
-
-                var converter = new System.Windows.Media.BrushConverter();
-                var brushRed = (Brush)converter.ConvertFromString("#FF0000");
-                var brushGreen = (Brush)converter.ConvertFromString("#33FF00");
-
-                lbl_contentGetStreamer.Content = tb_PollStreamer.Text;
-
-                if (doReturnData.Contains("!(LIVE)"))
-                {
-                    lbl_StreamerStatus.Foreground = brushRed;
-                    lbl_StreamerStatus.Content = "STREAMER OFFLINE";
-                }
-                else
-                {
-                    string finalTitle = doReturnData.Split('$')[0];
-                    string finalGame = doReturnData.Split('$')[1];
-                    string finalViewers = doReturnData.Split('$')[2];
-                    var finalImage = doReturnData.Split('$')[3];
-                    lbl_contentGetTitle.Content = finalTitle;
-                    lbl_contentGetGame.Content = finalGame;
-                    lbl_contentGetViewerCount.Content = finalViewers;
-
-                    if (checkbox_getAvatar.IsChecked == true)
-                    {
-                        img_streamerOffline.Source = getStreamerImage(finalImage);
-                    }
-
-                    lbl_StreamerStatus.Foreground = brushGreen;
-                    lbl_StreamerStatus.Content = "STREAMER ONLINE";
-                }
+                return;
             }
-            tb_PollStreamer.Text = string.Empty;
         }
 
         private ImageSource getStreamerImage(string s)
@@ -321,56 +295,227 @@ namespace LiveStreamerPlus
             bitmap.BeginInit();
             bitmap.UriSource = new Uri(s, UriKind.Absolute);
             bitmap.EndInit();
-
             return bitmap;
         }
 
-        private void chattyPath()
-        {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "Chatty|*.jar";
-            Nullable<bool> result = ofd.ShowDialog();
-            if (result == true)
-            {
-                appConfig.AppSettings.Settings.Remove("getChattyPath");
-                appConfig.AppSettings.Settings.Add("getChattyPath", ofd.FileName);
+        //Begin Event Methods
 
-                this.appConfigSave();
-            }
-            else
+            private void btn_Enter_Handler(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
             {
-                checkBox_doChatty.IsChecked = false;
-            }
+                btn_Go_Click(sender, e);
+                e.Handled = true;
+            }    
         }
 
-        private void startChatty(string path)
-        {
-            Process StartChatty = new Process();
-            StartChatty.StartInfo.FileName = path;
-            StartChatty.StartInfo.Arguments = "-channel " + tb_Channel.Text;
-            StartChatty.Start();
-        }
-
-        private void checkBox_doChatty_Checked(object sender, RoutedEventArgs e)
-        {
-            string getChattyPath = ConfigurationManager.AppSettings["getChattyPath"];
-            Console.WriteLine(getChattyPath);
-            if (!(getChattyPath == "0"))
+            private void pollStreamer_Enter(object sender, KeyEventArgs e)
             {
-                // do nothing
-            }
-            else
-            {
-                MessageBoxResult result = MessageBox.Show("Path not found for Chatty. Would you like to set one now?", ApplicationName, MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
-                if (result == MessageBoxResult.Yes)
+                if (e.Key == Key.Return)
                 {
-                    this.chattyPath();
+                    btn_PollStreamer_Click(sender, e);
+                    e.Handled = true;
+                }  
+            }
+
+            private void addStreamBtn_Click(object sender, RoutedEventArgs e)
+            {
+                string textField = streamToAdd.Text;
+
+                if (!(textField.Equals("Enter Stream Name") || textField.Equals("")))
+                {
+                    appConfig.AppSettings.Settings.Add("favStream", textField);
+                    newlyAdded.Add(textField);
+                    favStreamGrid.Items.Clear();
+                    try
+                    {
+                        appConfig.Save(ConfigurationSaveMode.Minimal);                                                
+                        SystemSounds.Asterisk.Play();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.ToString());
+                    }
+                    refreshFavorites(textField);
+                    streamToAdd.Text = "";
+                }
+            }
+
+            private void refreshFavorites(string newStreamer)
+            {
+                string placeHolder = ConfigurationManager.AppSettings["favStream"];
+                if (placeHolder != null)
+                {
+                    List<string> favStream = placeHolder.Split(',').ToList();                    
+                    foreach (string s in favStream)
+                    {
+                        if (!(recentlyRemoved.Contains(s)))
+                        {                        
+                            string status = ParseData.getStatus(s);
+
+                            favStreamGrid.Items.Add(new favStreamer { streamerName = s, streamerStatus = status });
+                        }
+                    }
+
+                    foreach (string s in newlyAdded)
+                    {
+                        if(!(recentlyRemoved.Contains(s)))
+                            favStreamGrid.Items.Add(new favStreamer { streamerName = s, streamerStatus = ParseData.getStatus(s) });
+                    }
+                }   
+                else
+                {
+                    favStreamGrid.Items.Add(new favStreamer { streamerName = newStreamer, streamerStatus = ParseData.getStatus(newStreamer) });
+                }
+            }
+        
+            private void btn_PollStreamer_Click(object sender, RoutedEventArgs e)
+            {
+                this.clearContent();
+                if (tb_PollStreamer.Text == string.Empty)
+                {
+                    var converter = new System.Windows.Media.BrushConverter();
+                    var brushRed = (Brush)converter.ConvertFromString("#FF0000");
+                    lbl_ErrorMessage.Foreground = brushRed;
+                    lbl_ErrorMessage.Content = "TEXT BOX EMEPTY";
+                    SystemSounds.Hand.Play();
                 }
                 else
                 {
-                    checkBox_doChatty.IsChecked = false;
+                    ParseData classParseData = new ParseData();
+                    string doReturnData = classParseData.getData(tb_PollStreamer.Text);
+                    
+                    var converter = new System.Windows.Media.BrushConverter();
+                    var brushRed = (Brush)converter.ConvertFromString("#FF0000");
+                    var brushGreen = (Brush)converter.ConvertFromString("#33FF00");
+
+                    lbl_contentGetStreamer.Content = tb_PollStreamer.Text;
+
+                    if (doReturnData.Contains("!(LIVE)"))
+                    {
+                        lbl_StreamerStatus.Foreground = brushRed;
+                        lbl_StreamerStatus.Content = "STREAMER OFFLINE";
+                    }
+                    else
+                    {
+                        string finalTitle = doReturnData.Split('$')[0];
+                        string finalGame = doReturnData.Split('$')[1];
+                        string finalViewers = doReturnData.Split('$')[2];
+                        var finalImage = doReturnData.Split('$')[3];
+                        lbl_contentGetTitle.Content = finalTitle;
+                        lbl_contentGetGame.Content = finalGame;
+                        lbl_contentGetViewerCount.Content = finalViewers;
+
+                        if (checkbox_getAvatar.IsChecked == true)
+                        {
+                            img_streamerOffline.Source = getStreamerImage(finalImage);
+                        }
+
+                        lbl_StreamerStatus.Foreground = brushGreen;
+                        lbl_StreamerStatus.Content = "STREAMER ONLINE";
+                    }
+                }
+                tb_PollStreamer.Text = string.Empty;
+            }
+
+            private void favStreamGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+            {
+                var streamer = favStreamGrid.SelectedItem as favStreamer;
+
+                if (streamer != null)
+                {
+                    string streamName = streamer.streamerName;
+
+                    if (checkBox_doChat.IsChecked == true)
+                    {
+                        ProcessStartInfo StartChat = new ProcessStartInfo("http://www.twitch.tv/chat/embed?channel=" + streamName + "&popout_chat=true");
+                        StartChat.WindowStyle = ProcessWindowStyle.Normal;
+                        Process.Start(StartChat);
+                    }
+
+                    Process cmdStart = new Process();
+                    cmdStart.StartInfo.FileName = "cmd.exe";
+                    cmdStart.StartInfo.Arguments = "/c livestreamer www.twitch.tv/" + streamName + " source";
+                    cmdStart.StartInfo.RedirectStandardOutput = true;
+                    cmdStart.StartInfo.CreateNoWindow = true;
+                    cmdStart.StartInfo.UseShellExecute = false;    
+
+                    cmdStart.Start();
+                    tabController.SelectedIndex = 0;
+                    classLog.logWithTime("Started Stream: " + "'" + streamName + "'" + " " + "on" + " '" + "Twitch" + "' " + " with" + " '" + "Source" + "' " + "quality.", rtb_Console);
+                }
+                e.Handled = true;
+            }
+
+            private void streamToAdd_GotFocus(object sender, RoutedEventArgs e)
+            {
+                this.streamToAdd.Text = "";
+                this.streamToAdd.Foreground = Brushes.White;
+            }
+
+            private void streamToAdd_KeyDown(object sender, KeyEventArgs e)
+            {
+                if (e.Key == Key.Return)
+                {
+                    addStreamBtn_Click(sender, e);
+                    e.Handled = true;
                 }
             }
-        }
+
+            private void btn_RemoveFavStream_Click(object sender, RoutedEventArgs e)
+            {
+                var streamer = favStreamGrid.SelectedItem as favStreamer;
+                string streamName = streamer.streamerName;
+                recentlyRemoved.Add(streamName);
+                string placeHolder = ConfigurationManager.AppSettings["favStream"];
+                List<string> favStream = placeHolder.Split(',').ToList();
+                appConfig.AppSettings.Settings.Remove("favStream");
+                favStreamGrid.Items.Clear();
+                foreach (string s in favStream)
+                {
+                    if (!(recentlyRemoved.Contains(s)) && !(s.Equals(streamName)))
+                    {
+                        appConfig.AppSettings.Settings.Add("favStream", s);
+                        string status = ParseData.getStatus(s);
+
+                        favStreamGrid.Items.Add(new favStreamer { streamerName = s, streamerStatus = status });
+                    }
+                }
+                try
+                {
+                    foreach (string s in newlyAdded)
+                    {
+                        if (!(recentlyRemoved.Contains(s)) && !(s.Equals(streamName)))
+                        {
+                            appConfig.AppSettings.Settings.Add("favStream", s);
+                            string status = ParseData.getStatus(s);
+
+                            favStreamGrid.Items.Add(new favStreamer { streamerName = s, streamerStatus = status });
+                        }
+                        else if(s.Equals(streamName))
+                        {
+                            newlyAdded.Remove(s);
+                        }
+                    }
+                }
+                catch(Exception ex)
+                {
+                    
+                }                
+
+                try
+                {
+                    appConfig.Save(ConfigurationSaveMode.Minimal);
+                    SystemSounds.Asterisk.Play();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), ApplicationName, MessageBoxButton.OK, MessageBoxImage.Error);
+                    this.Close();
+                }
+            }
+
+
+        //End Event Methods
     }
 }
