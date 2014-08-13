@@ -85,6 +85,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="favStreamer.cs" />
+    <Compile Include="Util\backgroundProcess.cs" />
     <Compile Include="Util\Log.cs" />
     <Compile Include="Util\ParseData.cs" />
     <Page Include="LiveStreamerPlus.xaml">

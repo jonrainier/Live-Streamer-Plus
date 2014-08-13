@@ -29,7 +29,7 @@ namespace LiveStreamerPlus.Util
             {
                 return "!(LIVE)";
             }
-
+            
             if (Regex.Matches(allReturnData, "subcategory").Count == 2)
             {
                 string allReturnDataZ = allReturnData;
@@ -52,7 +52,7 @@ namespace LiveStreamerPlus.Util
                 string parseGameFinalZ = parseGameZ.Substring(0, parseGameZ.Length - 2);
                 string parseViewersZ = returnLine(allReturnData, 9, 15);
                 string parseViewersFinalZ = parseViewersZ.Substring(0, parseViewersZ.Length - 1);
-                string parseOfflineImageZ = returnLine(allReturnData, 32, 26);
+                string parseOfflineImageZ = returnLine(allReturnData, 36, 15);
                 string parseOfflineImageFinalZ = parseOfflineImageZ.Substring(0, parseOfflineImageZ.Length - 2);
 
                 return parseTitleFinalZ + "$" + parseGameFinalZ + "$" + parseViewersFinalZ + "$" + parseOfflineImageFinalZ;
@@ -88,7 +88,7 @@ namespace LiveStreamerPlus.Util
                 {
                     return sr.ReadLine().Substring(count);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     //figure out error with parsing some channels viewers.
                     return "Error in parsing data ";
@@ -106,7 +106,7 @@ namespace LiveStreamerPlus.Util
                 {
                     return sr.ReadLine().Substring(count);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     //figure out error with parsing some channels viewers.
                     return "Error in parsing data ";

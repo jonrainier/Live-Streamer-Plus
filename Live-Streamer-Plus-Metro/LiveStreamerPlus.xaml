@@ -14,8 +14,32 @@
                 <ComboBox x:Name="cb_StreamSource" HorizontalAlignment="Left" Margin="65,6,0,0" VerticalAlignment="Top" Width="120" IsReadOnly="True" SelectedIndex="0" TabIndex="0">
                     <ComboBoxItem Content="Twitch"/>
                 </ComboBox>
-                <RichTextBox IsDocumentEnabled="True" x:Name="rtb_Console" HorizontalAlignment="Left" Height="222" Margin="10,42,0,0" VerticalAlignment="Top" Width="500" TabIndex="4" IsReadOnly="True">
+                <RichTextBox IsDocumentEnabled="True" x:Name="rtb_Console" HorizontalAlignment="Left" Height="222" Margin="10,42,0,0" VerticalAlignment="Top" Width="500" TabIndex="4" IsReadOnly="True">                    
                     <FlowDocument>
+                        <Paragraph LineHeight="1pt">
+                            <Run Text="Live Streamer Plus created by Pwnoz0r: "/>
+                            <Hyperlink RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="https://github.com/pwnoz0r" TargetName="_top">
+                                <Run Text="https://github.com/pwnoz0r"/>
+                            </Hyperlink>
+                        </Paragraph>
+                        <Paragraph LineHeight="1pt">
+                            <Run Text="This branch of Live Streamer Plus by Jacob Romero: "/>
+                            <Hyperlink RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="https://github.com/jacobromero" TargetName="_top">
+                                <Run Text="https://github.com/jacobromero"/>
+                            </Hyperlink>
+                        </Paragraph>
+                        <Paragraph LineHeight="1pt">
+                            <Run Text="VLC Media Player: "/>
+                            <Hyperlink RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="http://www.videolan.org" TargetName="_top">
+                                <Run Text="http://www.videolan.org"/>
+                            </Hyperlink>
+                        </Paragraph>
+                        <Paragraph LineHeight="1pt">
+                            <Run Text="Livestreamer: "/>
+                            <Hyperlink RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="http://livestreamer.tanuki.se/en/latest" TargetName="_top">
+                                <Run Text="http://livestreamer.tanuki.se/en/latest"/>
+                            </Hyperlink>
+                        </Paragraph>
                         <Paragraph LineHeight="1pt">
                             <Run Text=""/>
                         </Paragraph>
@@ -44,7 +68,7 @@
                 <Label x:Name="lbl_contentGetGame" Content="STREAMER-GETGAME" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Margin="70,60,0,0"/>
                 <Label Content="Viewers:" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Margin="10,85,0,0"/>
                 <Label x:Name="lbl_contentGetViewerCount" Content="STREAMER-GETVIEWERCOUNT" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Margin="70,85,0,0"/>
-                <Image x:Name="img_streamerOffline" HorizontalAlignment="Left" Height="70" Margin="420,170,0,0" VerticalAlignment="Top" Width="70"/>
+                <Image x:Name="img_streamerOffline" HorizontalAlignment="Left" Height="105" Margin="358,130,0,0" VerticalAlignment="Top" Width="105"/>
                 <Label x:Name="lbl_ErrorMessage" Content="E-MESSAGE" VerticalAlignment="Top" Foreground="White" HorizontalAlignment="Left" Margin="57,240,0,0" Width="115"/>
             </Grid>
         </TabItem>
@@ -95,9 +119,9 @@
             <Grid>
                 <CheckBox x:Name="checkBox_doChat" Content="Browser Chat" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,30,0,0" Width="100" ToolTip="If checked it will open up the broadcasters chat in your default browser."/>
                 <Button x:Name="btn_SaveSettings" Content="Save" HorizontalAlignment="Left" Margin="440,230,0,0" VerticalAlignment="Top" Width="75" Click="btn_SaveSettings_Click" ToolTip="Save settings."/>
-                <Button x:Name="btn_forceUpdate" Content="Force Update" HorizontalAlignment="Left" Margin="415,10,0,0" VerticalAlignment="Top" Width="98" Background="#BFCD0101" Click="btn_forceUpdate_Click"/>
+                <Button x:Name="btn_forceUpdate" Content="Force Update" HorizontalAlignment="Left" Margin="415,10,0,0" VerticalAlignment="Top" Width="98" Background="#BFCD0101" Click="btn_forceUpdate_Click" IsEnabled="False"/>
                 <CheckBox x:Name="checkbox_doStats" Content="Get Stats" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,130,0,0" Width="100" ToolTip="If checked it will return stats about the broadcaster." IsEnabled="False"/>
-                <CheckBox x:Name="checkbox_getAvatar" Content="Get Avatar" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,150,0,0" Width="100" ToolTip="If checked it will get the broadcasters avatar. UNCHECK IF STATS ARE TAKING A LONG TIME TO LOAD" IsEnabled="False"/>
+                <CheckBox x:Name="checkbox_getAvatar" Content="Get Avatar" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,150,0,0" Width="100" ToolTip="If checked it will get the broadcasters avatar. UNCHECK IF STATS ARE TAKING A LONG TIME TO LOAD" IsEnabled="True"/>
                 <Grid HorizontalAlignment="Left" Height="100" Margin="5,10,0,0" VerticalAlignment="Top" Width="229">
                     <GroupBox Header="Chat" Margin="0,0,0,0" Foreground="White"/>
                     <GroupBox Header="Stats" Margin="0,100,0,-100" Foreground="White"/>
