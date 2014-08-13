@@ -38,3 +38,6 @@ E:\Desktop\Live-Streamer-Plus-2.0.0.2\Live-Streamer-Plus-Metro\obj\Release\Live-
 E:\Desktop\Live-Streamer-Plus-2.0.0.2\Live-Streamer-Plus-Metro\obj\Release\LiveStreamerPlus.Properties.Resources.resources
 E:\Desktop\Live-Streamer-Plus-2.0.0.2\Live-Streamer-Plus-Metro\obj\Release\Live-Streamer-Plus-Metro.csproj.GenerateResource.Cache
 E:\Desktop\Live-Streamer-Plus-2.0.0.2\Live-Streamer-Plus-Metro\obj\Release\Live-Streamer-Plus-Metro.csprojResolveAssemblyReference.cache
+E:\Documents\GitHub\Live-Streamer-Plus\Live-Streamer-Plus-Metro\bin\Release\Live-Streamer-Plus.exe.config
+E:\Documents\GitHub\Live-Streamer-Plus\Live-Streamer-Plus-Metro\obj\Release\Live-Streamer-Plus.exe
+E:\Documents\GitHub\Live-Streamer-Plus\Live-Streamer-Plus-Metro\obj\Release\Live-Streamer-Plus.pdb
