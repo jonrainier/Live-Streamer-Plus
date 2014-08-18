@@ -14,7 +14,7 @@
                 <ComboBox x:Name="cb_StreamSource" HorizontalAlignment="Left" Margin="65,6,0,0" VerticalAlignment="Top" Width="120" IsReadOnly="True" SelectedIndex="0" TabIndex="0">
                     <ComboBoxItem Content="Twitch"/>
                 </ComboBox>
-                <RichTextBox IsDocumentEnabled="True" x:Name="rtb_Console" HorizontalAlignment="Left" Height="222" Margin="10,42,0,0" VerticalAlignment="Top" Width="500" TabIndex="4" IsReadOnly="True">                    
+                <RichTextBox IsDocumentEnabled="True" x:Name="rtb_Console" HorizontalAlignment="Left" Height="222" Margin="10,42,0,0" VerticalAlignment="Top" Width="500" TabIndex="4" IsReadOnly="True">
                     <FlowDocument>
                         <Paragraph LineHeight="1pt">
                             <Run Text="Live Streamer Plus created by Pwnoz0r: "/>
@@ -79,7 +79,10 @@
                     <RowDefinition Height="41*"/>
                 </Grid.RowDefinitions>
                 <Button x:Name="addStreamBtn" Content="Add" Margin="203,224,242,19" ToolTip="Click Here to add a favorite streamer." Grid.RowSpan="2" Click="addStreamBtn_Click"/>
-                <DataGrid Name="favStreamGrid" Margin="10,10,10,14" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserSortColumns="False" FontSize="18" HorizontalGridLinesBrush="#FF171717" VerticalGridLinesBrush="#FF171717" AutoGenerateColumns="False" CanUserResizeRows="False" RowHeaderWidth="0" ItemsSource="{Binding}" MouseDoubleClick="favStreamGrid_MouseDoubleClick" IsReadOnly="True" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <DataGrid Name="favStreamGrid" Margin="10,10,10,14" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserSortColumns="False" FontSize="18" HorizontalGridLinesBrush="#FF171717" VerticalGridLinesBrush="#FF171717" AutoGenerateColumns="False" CanUserResizeRows="False" RowHeaderWidth="0" ItemsSource="{Binding}" MouseDoubleClick="favStreamGrid_MouseDoubleClick" IsReadOnly="True" ScrollViewer.HorizontalScrollBarVisibility="Disabled" MouseMove="favStreamGrid_MouseMove">
+                    <DataGrid.ToolTip>
+                        <ToolTip x:Name="tt" Content="Double click stream name to start stream."/>
+                    </DataGrid.ToolTip>
                     <DataGrid.Resources>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
                             <Setter Property="Background" Value="#FF171717"/>
@@ -113,16 +116,26 @@
                 </DataGrid>
                 <Button x:Name="btn_RemoveFavStream" Content="Remove" HorizontalAlignment="Left" Margin="283,224,0,0" VerticalAlignment="Top" Width="76" RenderTransformOrigin="-0.293,-1" Background="#FFCD0101" ToolTip="Click here to remove a favorite streamer" Grid.RowSpan="2" Click="btn_RemoveFavStream_Click"/>
                 <TextBox x:Name="streamToAdd" HorizontalAlignment="Left" Height="31" Margin="10,224,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="188" Background="{x:Null}" BorderBrush="#FF017BCD" Grid.RowSpan="2" GotFocus="streamToAdd_GotFocus" Foreground="#FF595959" Text="Enter Stream Name" KeyDown="streamToAdd_KeyDown"/>
+                <ComboBox x:Name="fav_CbBox" HorizontalAlignment="Left" Margin="390,224,0,0" VerticalAlignment="Top" Width="120" Grid.RowSpan="2" ToolTip="Stream Quality from starting stream from favorites" BorderBrush="#FF017BCD" SelectedIndex="0">
+                    <ComboBoxItem Content="Source" HorizontalAlignment="Left" Width="118"/>
+                    <ComboBoxItem Content="High" HorizontalAlignment="Left" Width="118"/>
+                    <ComboBoxItem Content="Medium" HorizontalAlignment="Left" Width="118"/>
+                    <ComboBoxItem Content="Low" HorizontalAlignment="Left" Width="118"/>
+                </ComboBox>
             </Grid>
         </TabItem>
         <TabItem Header="Settings" TabIndex="3">
             <Grid>
-                <CheckBox x:Name="checkBox_doChat" Content="Browser Chat" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,30,0,0" Width="100" ToolTip="If checked it will open up the broadcasters chat in your default browser."/>
-                <Button x:Name="btn_SaveSettings" Content="Save" HorizontalAlignment="Left" Margin="440,230,0,0" VerticalAlignment="Top" Width="75" Click="btn_SaveSettings_Click" ToolTip="Save settings."/>
-                <Button x:Name="btn_forceUpdate" Content="Force Update" HorizontalAlignment="Left" Margin="415,10,0,0" VerticalAlignment="Top" Width="98" Background="#BFCD0101" Click="btn_forceUpdate_Click" IsEnabled="False"/>
-                <CheckBox x:Name="checkbox_doStats" Content="Get Stats" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,130,0,0" Width="100" ToolTip="If checked it will return stats about the broadcaster." IsEnabled="False"/>
-                <CheckBox x:Name="checkbox_getAvatar" Content="Get Avatar" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,150,0,0" Width="100" ToolTip="If checked it will get the broadcasters avatar. UNCHECK IF STATS ARE TAKING A LONG TIME TO LOAD" IsEnabled="True"/>
-                <Grid HorizontalAlignment="Left" Height="100" Margin="5,10,0,0" VerticalAlignment="Top" Width="229">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="21*"/>
+                    <ColumnDefinition Width="83*"/>
+                </Grid.ColumnDefinitions>
+                <CheckBox x:Name="checkBox_doChat" Content="Browser Chat" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,30,0,0" Width="100" ToolTip="If checked it will open up the broadcasters chat in your default browser." Grid.ColumnSpan="2"/>
+                <Button x:Name="btn_SaveSettings" Content="Save" HorizontalAlignment="Left" Margin="335,230,0,0" VerticalAlignment="Top" Width="75" Click="btn_SaveSettings_Click" ToolTip="Save settings." Grid.Column="1"/>
+                <Button x:Name="btn_forceUpdate" Content="Force Update" HorizontalAlignment="Left" Margin="310,10,0,0" VerticalAlignment="Top" Width="98" Background="#BFCD0101" Click="btn_forceUpdate_Click" IsEnabled="False" Grid.Column="1"/>
+                <CheckBox x:Name="checkbox_doStats" Content="Get Stats" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,130,0,0" Width="100" ToolTip="If checked it will return stats about the broadcaster." Grid.ColumnSpan="2"/>
+                <CheckBox x:Name="checkbox_getAvatar" Content="Get Avatar" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,150,0,0" Width="100" ToolTip="If checked it will get the broadcasters avatar. UNCHECK IF STATS ARE TAKING A LONG TIME TO LOAD" IsEnabled="True" Grid.ColumnSpan="2"/>
+                <Grid HorizontalAlignment="Left" Height="100" Margin="5,10,0,0" VerticalAlignment="Top" Width="229" Grid.ColumnSpan="2">
                     <GroupBox Header="Chat" Margin="0,0,0,0" Foreground="White"/>
                     <GroupBox Header="Stats" Margin="0,100,0,-100" Foreground="White"/>
                 </Grid>

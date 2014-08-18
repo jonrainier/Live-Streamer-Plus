@@ -44,12 +44,7 @@ namespace LiveStreamerPlus
             this.clearContent();
             this.loadFavorites();
 
-            classLog.logWithoutTime(
-                //"Live Streamer Plus created by Pwnoz0r: https://github.com/pwnoz0r" + "\r\n" +
-                //"This branch of Live Streamer Plus by Jacob Romero: https://github.com/jacobromero" + "\r\n" +
-                //"VLC Media Player: http://www.videolan.org/vlc/index.html" + "\r\n" +
-                //"Livestreamer: http://livestreamer.tanuki.se/en/latest" + "\r\n" +
-                "-------------------------------------------------------------" + "\r\n", rtb_Console);
+            classLog.logWithoutTime("-------------------------------------------------------------" + "\r\n", rtb_Console);
         }
 
         // Check for updates for the application.
@@ -132,7 +127,7 @@ namespace LiveStreamerPlus
                     ProcessStartInfo StartChat = new ProcessStartInfo("http://www.twitch.tv/chat/embed?channel=" + tb_Channel.Text + "&popout_chat=true");
                     StartChat.WindowStyle = ProcessWindowStyle.Normal;
                     Process.Start(StartChat);
-                }          
+                }
                 
                 try
                 {
@@ -142,7 +137,13 @@ namespace LiveStreamerPlus
                     foreach (string s in startStream.consoleOutputs)
                     {
                         classLog.logWithTime(s, rtb_Console);
-                    }                    
+                    }
+
+                    if (checkbox_doStats.IsChecked == true)
+                    {
+                        tabController.SelectedIndex = 1;
+                        pollStreamerMainTab(tb_Channel.Text);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -404,6 +405,42 @@ namespace LiveStreamerPlus
                 tb_PollStreamer.Text = string.Empty;
             }
 
+            private void pollStreamerMainTab(string streamName)
+            {
+                ParseData classParseData = new ParseData();
+                string doReturnData = classParseData.getData(streamName);
+
+                var converter = new System.Windows.Media.BrushConverter();
+                var brushRed = (Brush)converter.ConvertFromString("#FF0000");
+                var brushGreen = (Brush)converter.ConvertFromString("#33FF00");
+
+                lbl_contentGetStreamer.Content = streamName;
+
+                if (doReturnData.Contains("!(LIVE)"))
+                {
+                    lbl_StreamerStatus.Foreground = brushRed;
+                    lbl_StreamerStatus.Content = "STREAMER OFFLINE";
+                }
+                else
+                {
+                    string finalTitle = doReturnData.Split('$')[0];
+                    string finalGame = doReturnData.Split('$')[1];
+                    string finalViewers = doReturnData.Split('$')[2];
+                    var finalImage = doReturnData.Split('$')[3];
+                    lbl_contentGetTitle.Content = finalTitle;
+                    lbl_contentGetGame.Content = finalGame;
+                    lbl_contentGetViewerCount.Content = finalViewers;
+
+                    if (checkbox_getAvatar.IsChecked == true)
+                    {
+                        img_streamerOffline.Source = getStreamerImage(finalImage);
+                    }
+
+                    lbl_StreamerStatus.Foreground = brushGreen;
+                    lbl_StreamerStatus.Content = "STREAMER ONLINE";
+                }
+            }
+
             private void favStreamGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
             {
                 var streamer = favStreamGrid.SelectedItem as favStreamer;
@@ -419,16 +456,17 @@ namespace LiveStreamerPlus
                         Process.Start(StartChat);
                     }
 
-                    Process cmdStart = new Process();
-                    cmdStart.StartInfo.FileName = "cmd.exe";
-                    cmdStart.StartInfo.Arguments = "/c livestreamer www.twitch.tv/" + streamName + " source";
-                    cmdStart.StartInfo.RedirectStandardOutput = true;
-                    cmdStart.StartInfo.CreateNoWindow = true;
-                    cmdStart.StartInfo.UseShellExecute = false;    
-
-                    cmdStart.Start();
                     tabController.SelectedIndex = 0;
                     classLog.logWithTime("Started Stream: " + "'" + streamName + "'" + " " + "on" + " '" + "Twitch" + "' " + " with" + " '" + "Source" + "' " + "quality.", rtb_Console);
+
+                    backgroundProcess startStream = new backgroundProcess();
+                    startStream.startProcess(streamName, fav_CbBox.SelectedIndex);
+                    
+                    foreach (string s in startStream.consoleOutputs)
+                    {
+                        classLog.logWithTime(s, rtb_Console);
+                    }
+                    rtb_Console.AppendText("\n");
                 }
                 e.Handled = true;
             }
@@ -502,20 +540,6 @@ namespace LiveStreamerPlus
                 }
             }
 
-            //private void Hyperlink_Click(object sender, RoutedEventArgs e)
-            //{
-            //    var hyperlink = (Hyperlink)sender;
-            //    try
-            //    {
-            //        Process.Start(hyperlink.NavigateUri.ToString());
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        MessageBox.Show(ex.ToString());
-            //    }
-                
-            //}
-
             private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
             {
                 var hyperlink = (Hyperlink)sender;
@@ -527,6 +551,13 @@ namespace LiveStreamerPlus
                 {
                     MessageBox.Show(ex.ToString());
                 }
+            }
+
+            private void favStreamGrid_MouseMove(object sender, MouseEventArgs e)
+            {
+                tt.Placement = System.Windows.Controls.Primitives.PlacementMode.Relative;
+                tt.HorizontalOffset = e.GetPosition((IInputElement)sender).X + 15;
+                tt.VerticalOffset = e.GetPosition((IInputElement)sender).Y + 15;
             }
 
         //End Event Methods
